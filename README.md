@@ -26,18 +26,18 @@ In addition, this project will include:
 This app will consist of three pages. All pages will have easy access to nav links to my github and linkedIn. The index page 
 will include all available lessons. A user can click on any of these lessons to begin working on a specific lesson. 
 
-![Index Page](https://github.com/carlosarias1992/code-racer/raw/master/images/index.png "Index Page")
+![Index Page](https://github.com/carlosarias1992/code-racer/raw/master/assets/images/index.png "Index Page")
 
 Each lesson will be displayed on a lesson page. Each lesson page will display the text to be typed by the user. The user can
 begin working on a lesson by simply typing on the keyboard. 
 
-![Lesson Page](https://github.com/carlosarias1992/code-racer/raw/master/images/lesson.png "Lesson Page")
+![Lesson Page](https://github.com/carlosarias1992/code-racer/raw/master/assets/images/lesson.png "Lesson Page")
 
 The last page will be rendered once a lesson has been completed. This page also known as the stats page will display the 
 user's stats including the typing speed and accuracy. The user can use the controls in the center of the page to restart a 
 lesson, access all lessons, or move on to the next lesson. 
 
-![Stats Page](https://github.com/carlosarias1992/code-racer/raw/master/images/stats.png "Stats Page")
+![Stats Page](https://github.com/carlosarias1992/code-racer/raw/master/assets/images/stats.png "Stats Page")
 
 ### Architecture and Technologies
 
