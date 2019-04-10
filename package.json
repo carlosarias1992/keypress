@@ -2,26 +2,23 @@
   "name": "code-racer",
   "version": "1.0.0",
   "description": "Code Racer is a web application designed to teach programmers how to type. Code racer has a number of different lessons\r depending on the language that you are trying to learn. A user receives stats at the end of the lesson which will help\r determine long-term improvement in typing speed.",
-  "main": "app.js",
-  "dependencies": {
-    "express": "^4.16.4",
-    "webpack": "^4.29.6"
-  },
-  "devDependencies": {
-    "webpack-cli": "^3.3.0"
-  },
+  "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "webpack": "webpack --watch --mode=development"
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/carlosarias1992/code-racer.git"
   },
+  "keywords": [],
   "author": "",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/carlosarias1992/code-racer/issues"
   },
-  "homepage": "https://github.com/carlosarias1992/code-racer#readme"
+  "homepage": "https://github.com/carlosarias1992/code-racer#readme",
+  "devDependencies": {
+    "webpack": "^4.29.6",
+    "webpack-cli": "^3.3.0"
+  }
 }
