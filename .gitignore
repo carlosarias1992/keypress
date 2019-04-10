@@ -7,3 +7,11 @@
 .Trashes
 ehthumbs.db
 Thumbs.db
+
+# Node #
+########
+node_modules
+
+# Webpack #
+###########
+bundle.js
