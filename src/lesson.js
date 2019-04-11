@@ -72,7 +72,7 @@ class Lesson {
 
     updateCompletionBar() {
         const bar = document.querySelector(".completion-bar");
-        const width = (this.currentLetterIndex / (this.letters.length - 1)) * 100;
+        const width = (this.currentLetterIndex / (this.letters.length)) * 100;
         bar.style.width = `${width}%`;
     }
 
@@ -88,12 +88,13 @@ class Lesson {
                 this.currentLetterIndex -= 1;
                 const previousElement = this.currentElement();
                 
-                if (this.wrongLetters.includes(this.currentLetterIndex)) {
+                if (this.wrongLetters.includes(this.currentLetterIndex) && !this.editedLetters.includes(this.currentLetterIndex)) {
                     this.editedLetters.push(this.currentLetterIndex);
                 }
 
                 removeClass(previousElement, "wrong");
                 removeClass(previousElement, "correct");
+                removeClass(previousElement, "edited");
                 removeClass(currentElement, "cursor");
                 this.moveCursor();
                 this.updateCompletionBar();
@@ -119,16 +120,16 @@ class Lesson {
                 addClass(currentElement, "correct");
                 removeClass(currentElement, "cursor");
             } else {
-                this.wrongLetters.push(this.currentLetterIndex);
+                if (!this.wrongLetters.includes(this.currentLetterIndex)) {
+                    this.wrongLetters.push(this.currentLetterIndex);
+                }
                 addClass(currentElement, "wrong");
                 removeClass(currentElement, "cursor");
             }
 
             this.currentLetterIndex += 1;
-            if (this.currentLetterIndex !== this.letters.length) {
-                this.moveCursor();
-                this.updateCompletionBar();
-            }
+            if (this.currentLetterIndex !== this.letters.length) this.moveCursor();
+            this.updateCompletionBar();
         }
     }
 }
