@@ -1,3 +1,7 @@
+pre {
+    margin: 0;
+}
+
 .lesson-container {
     width: 65%;
     margin: 0 auto;
@@ -5,18 +9,27 @@
     font-size: 32px;
     font-family: 'Roboto Mono', monospace;
     color: #757575;
+    position: relative;
+    height: 180px;
+    overflow: hidden;
+    border-bottom: 1px #bbbbbb solid;
+}
+
+.word-container {
+    display: inline-block;
 }
 
 .letter-holder {
     display: inline-block;
-    line-height: 42px;
     min-width: 18px;
     margin-right: 2px;
     border-radius: 2px;
+    height: 38px;
 }
 
 .cursor {
     border-bottom: 3px #0b6bf9 solid;
+    margin-bottom: -7px;
 }
 
 .correct {
@@ -29,7 +42,16 @@
     color: #8b0b00;
 }
 
-.fixed {
+.edited {
     background-color: #ffe9b2;
     color: #0e630f;
+}
+
+.completion-bar {
+    background-color: #78b8ff;
+    height: 3px;
+    width: 0;
+    position: absolute;
+    bottom: 0;
+    transition: 1s;
 }
