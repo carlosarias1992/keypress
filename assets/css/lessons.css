@@ -55,3 +55,12 @@ pre {
     bottom: 0;
     transition: 1s;
 }
+
+.bottom-section {
+    display: flex;
+    justify-content: center;
+}
+
+.bottom-section img {
+    margin-top: 70px;
+}

@@ -60,7 +60,6 @@ class Lesson {
         });
 
         lessonContainer.appendChild(this.completionBar());
-
         return lessonContainer;
     }
 
@@ -77,8 +76,15 @@ class Lesson {
     }
 
     stats() {
-        console.log(`speed: ${(this.end - this.start) / 1000} seconds`); 
-        console.log(`accuracy: ${((this.letters.length - this.wrongLetters.length) / this.letters.length) * 100} %`); 
+        const duration = (this.end - this.start) / 1000;
+        const contentLength = this.letters.length;
+
+        return {
+            duration,
+            realAccuracy: ((contentLength - this.wrongLetters.length) / contentLength) * 100,
+            accuracy: ((contentLength - this.wrongLetters.length + this.editedLetters.length) / this.letters.length) * 100,
+            speed: (contentLength / 4.5) / duration * 60
+        };
     }
 
     handleBackspace(e) {
@@ -106,7 +112,7 @@ class Lesson {
         if (this.currentLetterIndex === 0) this.start = Date.now();
         if (this.currentLetterIndex === this.letters.length - 1) {
             this.end = Date.now();
-            this.stats();
+            console.log(this.stats());
         }
 
         if (this.currentLetterIndex !== this.letters.length) {
