@@ -6,6 +6,7 @@ class Lesson {
         this.lesson = lessons[lessonNumber];
         this.letters = [];
         this.editedLetters = [];
+        this.wrongLetters = [];
         this.words = this.lesson.content.split(" ");
         this.start = 0;
         this.end = 0;
@@ -75,8 +76,9 @@ class Lesson {
         bar.style.width = `${width}%`;
     }
 
-    speed() {
-       console.log(`${(this.end - this.start) / 1000} seconds`); 
+    stats() {
+        console.log(`speed: ${(this.end - this.start) / 1000} seconds`); 
+        console.log(`accuracy: ${((this.letters.length - this.wrongLetters.length) / this.letters.length) * 100} %`); 
     }
 
     handleBackspace(e) {
@@ -84,8 +86,11 @@ class Lesson {
             if (e.key === "Backspace") {
                 const currentElement = this.currentElement();
                 this.currentLetterIndex -= 1;
-                this.editedLetters.push(this.currentLetterIndex);
                 const previousElement = this.currentElement();
+                
+                if (this.wrongLetters.includes(this.currentLetterIndex)) {
+                    this.editedLetters.push(this.currentLetterIndex);
+                }
 
                 removeClass(previousElement, "wrong");
                 removeClass(previousElement, "correct");
@@ -100,7 +105,7 @@ class Lesson {
         if (this.currentLetterIndex === 0) this.start = Date.now();
         if (this.currentLetterIndex === this.letters.length - 1) {
             this.end = Date.now();
-            this.speed();
+            this.stats();
         }
 
         if (this.currentLetterIndex !== this.letters.length) {
@@ -114,6 +119,7 @@ class Lesson {
                 addClass(currentElement, "correct");
                 removeClass(currentElement, "cursor");
             } else {
+                this.wrongLetters.push(this.currentLetterIndex);
                 addClass(currentElement, "wrong");
                 removeClass(currentElement, "cursor");
             }
