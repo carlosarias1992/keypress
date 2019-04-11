@@ -56,11 +56,11 @@ pre {
     transition: 1s;
 }
 
-.bottom-section {
+.keyboard {
     display: flex;
     justify-content: center;
 }
 
-.bottom-section img {
+.keyboard img {
     margin-top: 70px;
 }

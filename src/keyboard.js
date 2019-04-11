@@ -1,21 +1,16 @@
 import keyUrls from './key_urls';
 
 class Keyboard {
-    constructor(key, parentElement) {
-        this.key = key;
-        this.url = keyUrls[key];
+    constructor(parentElement) {
         this.parentElement = parentElement;
     }
 
-    reset(parentElement) {
-        parentElement.innerHTML = "";
-        parentElement.appendChild(this.render());
-    }
-
-    render() {
+    render(key) {
+        this.parentElement.innerHTML = "";
+        const url = keyUrls[key];
         const keyboardImage = document.createElement("img");
-        keyboardImage.src = `assets/images/keys/${this.url}`;
-        return keyboardImage;
+        keyboardImage.src = `assets/images/keys/${url}`;
+        this.parentElement.appendChild(keyboardImage);
     }
 }
 
