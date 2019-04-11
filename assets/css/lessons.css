@@ -64,3 +64,8 @@ pre {
 .keyboard img {
     margin-top: 70px;
 }
+
+.stats {
+    display: flex;
+    justify-content: center;
+}
