@@ -5,53 +5,68 @@ import Stats from './stats';
 class Play {
     constructor(lessonNumber, parentElement) {
         this.lessonNumber = lessonNumber;
-        this.lesson = '';
+        this.lesson = undefined;
+        this.keyboard = undefined;
         this.parentElement = parentElement;
+        this.renderKeyboard = this.renderKeyboard.bind(this);
     }
 
-    renderKeyboard(keyboard, parentElement) {
-        parentElement.className = "keyboard";
+    renderStats(stats, statsParentElement) {
+        statsParentElement.className = "stats";
+        stats.render();
+
+        this.parentElement.appendChild(statsParentElement);
+    }
+
+    renderKeyboard(keyboard, keyboardParentElement) {
+        keyboardParentElement.className = "keyboard";
         keyboard.render(this.lesson.letters[0]);
 
-        this.parentElement.appendChild(parentElement);
+        this.parentElement.appendChild(keyboardParentElement);
+    }
+
+    handleInput() {
+        const { lesson, keyboard } = this;
+        const stats = new Stats(lesson.letters);
+        const currentLetter = lesson.letters[lesson.currentLetterIndex];
+
+        document.addEventListener("keypress", e => {
+            lesson.handleInput(e);
+
+            if (lesson.currentLetterIndex === 0) {
+                stats.startTimer();
+            }
+
+            if (lesson.currentLetterIndex < lesson.letters.length) {
+                keyboard.render(currentLetter);
+            }
+        });
+
+        document.addEventListener("keydown", e => {
+            lesson.handleBackspace(e);
+
+            if (lesson.currentLetterIndex < lesson.letters.length) {
+                keyboard.render(currentLetter);
+            }
+        });
     }
 
     render() {
-        const lesson = new Lesson(this.lessonNumber);
-        this.lesson = lesson;
-        
-        this.parentElement.appendChild(lesson.render());
+        this.lesson = new Lesson(this.lessonNumber);
+        const { lesson, parentElement, renderKeyboard, renderStats } = this;
+
+        parentElement.appendChild(lesson.render());
         lesson.moveCursor();
 
+        const statsSection = document.createElement("div");
+        this.stats = new Stats(lesson.letters);
+        renderStats(stats, statsSection);
+
         const keyboardSection = document.createElement("div");
-        const keyboard = new Keyboard(keyboardSection);
-        this.renderKeyboard(keyboard, keyboardSection);
+        this.keyboard = new Keyboard(keyboardSection);
+        renderKeyboard(this.keyboard, keyboardSection);
 
-        // const stats = new Stats(lesson.letters);
-
-        // document.addEventListener("keypress", event => {
-        //     if (lesson.currentLetterIndex === 0) {
-        //         stats.startTimer();
-        //     }
-
-        //     console.log(stats.accuracy(lesson.wrongLetters, lesson.editedLetters));
-
-        //     lesson.handleInput(event);
-        //     const keyboard = new Keyboard(lesson.letters[lesson.currentLetterIndex]);
-
-        //     if (lesson.currentLetterIndex < lesson.letters.length) {
-        //         keyboard.reset(keyboardSection);
-        //     }
-        // });
-
-        // document.addEventListener("keydown", event => {
-        //     lesson.handleBackspace(event);
-        //     const keyboard = new Keyboard(lesson.letters[lesson.currentLetterIndex]);
-
-        //     if (lesson.currentLetterIndex < lesson.letters.length) {
-        //         keyboard.reset(keyboardSection);
-        //     }
-        // });
+        this.handleInput();
     }
 }
 
