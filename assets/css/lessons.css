@@ -35,6 +35,7 @@ pre {
 .cursor {
     border-bottom: 3px #0b6bf9 solid;
     margin-bottom: -7px;
+    border-radius: 0;
 }
 
 .correct {
@@ -94,4 +95,42 @@ pre {
 
 .stats div:first-of-type {
     margin-right: 100px;
+}
+
+.social-links {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    display: flex;
+    list-style: none;
+    padding: 0;
+    margin-bottom: 20px;
+}
+
+.social-links li {
+    display: flex;
+    align-items: center;
+    margin-right: 20px;
+}
+
+.social-links a {
+    color: #4e4949;
+    text-decoration: none;
+    font-size: 20px;
+    font-family: sans-serif;
+    display: flex;
+    align-items: center;
+    transition: 0.3s;
+}
+
+.social-links a:hover {
+    color: #0a6bf9;
+}
+
+.social-links i {
+    margin-right: 5px;
+}
+
+.fa-github, .fa-linkedin {
+    font-size: 30px;
 }
