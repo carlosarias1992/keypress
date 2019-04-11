@@ -19,6 +19,10 @@ class Stats {
         return Math.ceil((this.content.length / 4.5) / this.duration() * 60);
     }
 
+    currentSpeed(content) {
+        return Math.ceil((content.length / 4.5) / this.duration() * 60);
+    }
+
     accuracy(wrongLetters, editedLetters) {
         const { content } = this;
         return Math.ceil(((content.length - wrongLetters.length + editedLetters.length) / content.length) * 100);

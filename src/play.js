@@ -11,6 +11,13 @@ class Play {
         this.parentElement = parentElement;
         this.renderKeyboard = this.renderKeyboard.bind(this);
         this.renderStats = this.renderStats.bind(this);
+        this.getCurrentSpeed = this.getCurrentSpeed.bind(this);
+        this.handleInput = this.handleInput.bind(this);
+    }
+
+    getCurrentSpeed() {
+        const currentLetters = this.lesson.letters.slice(0, this.lesson.currentLetterIndex);
+        return this.stats.currentSpeed(currentLetters);
     }
 
     statsElement(parentElement, valueName) {
@@ -25,7 +32,7 @@ class Play {
         if (valueName === "Accuracy") {
             value.innerHTML = `${this.stats.accuracy(this.lesson.wrongLetters, this.lesson.editedLetters)}%`;
         } else if (valueName === "Speed") {
-            value.innerHTML = `${this.stats.speed()} WPM`;
+            value.innerHTML = `${this.getCurrentSpeed()} WPM`;
         }
 
         holder.appendChild(value);
@@ -49,10 +56,10 @@ class Play {
 
     handleInput() {
         const { lesson, keyboard, stats } = this;
-        const currentLetter = lesson.letters[lesson.currentLetterIndex];
         const statsSection = document.createElement("div");
 
         document.addEventListener("keypress", e => {
+            const currentLetter = lesson.letters[lesson.currentLetterIndex];
             lesson.handleInput(e);
 
             if (lesson.currentLetterIndex === 1) {
@@ -70,14 +77,15 @@ class Play {
                 accuracy.innerHTML = `${stats.accuracy(this.lesson.wrongLetters, this.lesson.editedLetters)}%`;
                 
                 const speed = document.querySelector(".speed");
-                speed.innerHTML = `${stats.speed()} WPM`;
+                speed.innerHTML = `${this.getCurrentSpeed()} WPM`;
             }
         });
 
         document.addEventListener("keydown", e => {
+            const currentLetter = lesson.letters[lesson.currentLetterIndex];
             lesson.handleBackspace(e);
 
-            if (lesson.currentLetterIndex < lesson.letters.length) {
+            if (lesson.currentLetterIndex < lesson.letters.length && e.key === "Backspace") {
                 keyboard.render(currentLetter);
             }
         });

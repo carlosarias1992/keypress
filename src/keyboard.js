@@ -1,4 +1,5 @@
 import keyUrls from './key_urls';
+window.keyUrls = keyUrls;
 
 class Keyboard {
     constructor(parentElement) {
