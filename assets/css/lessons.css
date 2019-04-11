@@ -62,10 +62,31 @@ pre {
 }
 
 .keyboard img {
-    margin-top: 70px;
+    margin-top: 100px;
 }
 
 .stats {
     display: flex;
     justify-content: center;
+    position: absolute;
+    width: 100%;
+    top: 235px;
+    color: #888;
+    font-family: sans-serif;
+    text-align: center;
+    font-size: 12px;
+}
+
+.stats h2 {
+    font-weight: normal;
+    margin-bottom: 5px;
+}
+
+.stats p {
+    font-size: 28px;
+    margin: 0;
+}
+
+.stats div:first-of-type {
+    margin-right: 100px;
 }

@@ -16,12 +16,12 @@ class Stats {
     }
 
     speed() {
-        return (this.content.length / 4.5) / this.duration() * 60;
+        return Math.ceil((this.content.length / 4.5) / this.duration() * 60);
     }
 
     accuracy(wrongLetters, editedLetters) {
         const { content } = this;
-        return ((content.length - wrongLetters.length + editedLetters.length) / content.length) * 100;
+        return Math.ceil(((content.length - wrongLetters.length + editedLetters.length) / content.length) * 100);
     }
 
     realAccuracy(wrongLetters) {
