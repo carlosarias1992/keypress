@@ -63,8 +63,17 @@ class Play {
         }
     }
 
+    scrollUp() {
+        const cursor = document.querySelector(".cursor");
+        const lessonContainer = document.querySelector(".lesson-container");
+
+        if (cursor.offsetTop < lessonContainer.scrollTop) {
+            lessonContainer.scrollTop -= 50;
+        }
+    }
+
     handleInput() {
-        const { lesson, keyboard, stats, scrollDown } = this;
+        const { lesson, keyboard, stats, scrollDown, scrollUp } = this;
         const statsSection = document.createElement("div");
 
         document.addEventListener("keypress", e => {
@@ -97,6 +106,7 @@ class Play {
 
             if (lesson.currentLetterIndex < lesson.letters.length && e.key === "Backspace") {
                 keyboard.render(currentLetter);
+                scrollUp();
             }
         });
     }
