@@ -1,6 +1,6 @@
-import LessonPage from './lesson_page';
+import HomePage from './home_page';
 
 document.addEventListener("DOMContentLoaded", () => {
-    const lesson = new LessonPage(1);
-    lesson.render();
+    const home = new HomePage();
+    home.render();
 });

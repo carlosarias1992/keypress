@@ -1,0 +1,27 @@
+.all-lessons {
+    width: 80%;
+    margin: auto;
+    margin-top: 40px;
+} 
+
+.all-lessons button {
+    background-color: white;
+    padding: 0;
+    margin: 10px;
+    box-shadow: 0 1px 4px 0 rgba(0,0,0,0.37);
+    border-radius: 3px;
+    border: 1px #b5b5b5 solid;
+}
+
+.button-footer {
+    border-top: 1px #b5b5b5 solid;
+    font-size: 12px;
+    padding: 3px 0;
+}
+
+.button-header {
+    text-align: left;
+    padding-left: 10px;
+    text-shadow: 2px 3px 6px #fff, 0 0 0 #000, 2px 3px 6px #fff;
+    font-size: 30px;
+}

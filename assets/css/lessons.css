@@ -7,7 +7,7 @@ body {
     padding: 0;
 }
 
-header {
+#root header {
     display: flex;
     justify-content: space-between;
     border-bottom: 1px #dddddd solid;
@@ -39,19 +39,24 @@ pre {
     width: 65%;
     margin: 0 auto;
     margin-top: 50px;
-    font-size: 38px;
-    font-family: 'Roboto Mono', monospace;
-    color: #757575;
     position: relative;
-    height: 210px;
+    height: 200px;
     overflow: hidden;
     border-bottom: 1px #bbbbbb solid;
     padding-bottom: 62px;
     box-sizing: border-box;
 }
 
+.lesson-container span {
+    font-family: 'Roboto Mono', monospace;
+    color: #757575;
+    font-size: 38px;
+    line-height: 45px;
+}
+
 .word-container {
     display: inline-block;
+    overflow: hidden;
 }
 
 .letter-holder {
@@ -68,17 +73,17 @@ pre {
     border-radius: 0;
 }
 
-.correct {
+.lesson-container .correct {
     background-color: #e6fbd3;
     color: #0e630f;
 }
 
-.wrong {
+.lesson-container .wrong {
     background-color: #fec0cb;
     color: #8b0b00;
 }
 
-.edited {
+.lesson-container .edited {
     background-color: #ffe9b2;
     color: #0e630f;
 }
@@ -88,7 +93,7 @@ pre {
     height: 3px;
     width: 0;
     position: fixed;
-    top: 303px;
+    top: 294px;
     transition: 1s;
 }
 
@@ -106,11 +111,10 @@ pre {
     justify-content: center;
     position: absolute;
     width: 100%;
-    top: 310px;
+    top: 314px;
     color: #888;
     font-family: sans-serif;
     text-align: center;
-    font-size: 12px;
 }
 
 .stats h2 {
@@ -155,6 +159,7 @@ pre {
 
 .social-links a:hover {
     color: #0a6bf9;
+    text-decoration: none;
 }
 
 .social-links i {
@@ -185,6 +190,10 @@ pre {
 
 .right-controllers > button {
     margin-right: 25px;
+}
+
+.title {
+    font-size: 18px;
 }
 
 

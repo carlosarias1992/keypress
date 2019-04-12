@@ -52,6 +52,7 @@ class Game {
         const holder = document.createElement("div");
         parentElement.appendChild(holder);
         const title = document.createElement("h2");
+        title.className = "title";
         title.innerHTML = valueName;
         holder.appendChild(title);
         const value = document.createElement("p");
@@ -88,7 +89,7 @@ class Game {
         const cursor = document.querySelector(".cursor");
         const lessonContainer = document.querySelector(".lesson-container");
 
-        if (cursor && cursor.offsetTop > lessonContainer.scrollTop + 5 && lessonContainer.scrollHeight - cursor.offsetTop >= 207) {
+        if (cursor && cursor.offsetTop > lessonContainer.scrollTop + 5 && lessonContainer.scrollHeight - cursor.offsetTop >= 190) {
             const timerId = setInterval(() => {
                 lessonContainer.scrollTop += 1;
 
