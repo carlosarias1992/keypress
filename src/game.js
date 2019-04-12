@@ -1,16 +1,15 @@
 import Lesson from './lesson';
 import Keyboard from './keyboard';
 import Stats from './stats';
-import Header from './header';
-import lessons from './lessons';
 
 class Game {
-    constructor() {
-        this.lessonNumber = undefined;
+    constructor(header, audioController) {
+        this.lessonObject = header.lesson;
         this.lesson = undefined;
         this.stats = undefined;
         this.keyboard = undefined;
-        this.header = undefined;
+        this.header = header;
+        this.audioController = audioController;
         this.parentElement = document.getElementById("root");
         this.renderKeyboard = this.renderKeyboard.bind(this);
         this.renderStats = this.renderStats.bind(this);
@@ -22,11 +21,18 @@ class Game {
         this.startLesson = this.startLesson.bind(this);
     }
 
-    startLesson(lessonNumber) {
-        this.lessonNumber = lessonNumber;
+    startLesson() {
         this.parentElement.innerHTML = '';
         this.render();
     } 
+
+    restart() {
+        this.lesson = undefined;
+        this.stats = undefined;
+        this.keyboard = undefined;
+        this.parentElement.innerHTML = '';
+        this.render();
+    }
 
     getCurrentAccuracy() {
         const { lesson, stats } = this;
@@ -109,7 +115,7 @@ class Game {
     }
 
     handleKeypress(e) {
-        const { lesson, keyboard, stats, scrollDown, header } = this;
+        const { lesson, keyboard, stats, scrollDown, audioController } = this;
 
         const statsSection = document.createElement("div");
         const currentLetter = lesson.letters[lesson.currentLetterIndex + 1];
@@ -121,8 +127,7 @@ class Game {
         }
 
         if (lesson.currentLetterIndex < lesson.letters.length) {
-            const audio = header.sound;
-            audio.play();
+            audioController.play();
             keyboard.render(currentLetter);
         }
 
@@ -138,14 +143,13 @@ class Game {
     }
 
     handleKeydown(e) {
-        const { lesson, keyboard, scrollUp, header } = this;
+        const { lesson, keyboard, scrollUp, audioController } = this;
 
         const currentLetter = lesson.letters[lesson.currentLetterIndex - 1];
         lesson.handleBackspace(e);
 
         if (currentLetter && lesson.currentLetterIndex < lesson.letters.length && e.key === "Backspace") {
-            const audio = header.sound;
-            audio.play();
+            audioController.play();
             keyboard.render(currentLetter);
             scrollUp();
         }
@@ -159,13 +163,12 @@ class Game {
     }
 
     render() {
-        this.lesson = new Lesson(this.lessonNumber);
-        const { lesson, parentElement, renderKeyboard, lessonNumber } = this;
+        this.lesson = new Lesson(this.lessonObject.id);
+        const { lesson, parentElement, renderKeyboard, header } = this;
 
-        this.header = new Header(lessons[lessonNumber]);
         this.stats = new Stats(lesson.letters);
 
-        parentElement.appendChild(this.header.render());
+        parentElement.appendChild(header.render());
         parentElement.appendChild(lesson.render());
         lesson.moveCursor();
 

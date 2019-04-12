@@ -183,4 +183,8 @@ pre {
     display: flex;
 }
 
+.right-controllers > button {
+    margin-right: 25px;
+}
+
 

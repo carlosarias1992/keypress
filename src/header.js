@@ -1,18 +1,18 @@
-import AudioController from './audio_controller';
 import Game from './game';
 
 class Header {
-    constructor(lesson) {
+    constructor(lesson, lessonPage) {
         this.lesson = lesson;
-        this.sound = undefined;
+        this.lessonPage = lessonPage;
+        this.restart = false;
+        this.audioController = lessonPage.audioController;
         this.renderLessonName = this.renderLessonName.bind(this);
         this.renderControllers = this.renderControllers.bind(this);
         this.restartLesson = this.restartLesson.bind(this);
     }
 
     restartLesson() {
-        const game = new Game();
-        game.startLesson(this.lesson.id);
+        this.lessonPage.restartGame();
     }
 
     renderMenu(parentElement) {
@@ -45,10 +45,9 @@ class Header {
 
         this.renderRestartController(controllers);
 
-        const audioController = document.createElement("div");
-        controllers.appendChild(audioController);
-        this.sound = new AudioController("assets/audio/key-press.mp3", audioController);
-        this.sound.render();
+        const audioControllerDiv = document.createElement("div");
+        controllers.appendChild(audioControllerDiv);
+        this.audioController.render(audioControllerDiv);
     }
 
     render() {

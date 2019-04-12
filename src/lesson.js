@@ -3,11 +3,10 @@ import { addClass, removeClass } from './util';
 
 class Lesson {
     constructor(lessonNumber) {
-        this.lesson = lessons[lessonNumber];
         this.letters = [];
         this.editedLetters = [];
         this.wrongLetters = [];
-        this.words = this.lesson.content.split(" ");
+        this.words = lessons[lessonNumber].content.split(" ");
         this.start = 0;
         this.duration = 0;
         this.currentLetterIndex = 0;

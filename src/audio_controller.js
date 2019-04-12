@@ -1,7 +1,7 @@
 class AudioController {
-    constructor(filePath, parentElement) {
-        this.parentElement = parentElement;
+    constructor(filePath) {
         this.filePath = filePath;
+        this.parentElement = undefined;
         this.audio = true;
         this.toggleSound = this.toggleSound.bind(this);
     }
@@ -13,7 +13,7 @@ class AudioController {
             this.audio = true;
         }
 
-        this.render();
+        this.render(this.parentElement);
     }
 
     play() {
@@ -23,8 +23,9 @@ class AudioController {
         }
     }
 
-    render() {
-        this.parentElement.innerHTML = '';
+    render(parentElement) {
+        this.parentElement = parentElement;
+        parentElement.innerHTML = '';
         const sound = document.createElement("button");
         sound.onclick = this.toggleSound;
         sound.className = "sound";
@@ -35,7 +36,7 @@ class AudioController {
             sound.innerHTML = '<i class="fas fa-volume-mute"></i>';
         }
 
-        this.parentElement.appendChild(sound);
+        parentElement.appendChild(sound);
     }
 }
 

@@ -1,6 +1,6 @@
-import Game from './game';
+import LessonPage from './lesson_page';
 
 document.addEventListener("DOMContentLoaded", () => {
-    const game = new Game();
-    game.startLesson(0);
+    const lesson = new LessonPage(1);
+    lesson.render();
 });
