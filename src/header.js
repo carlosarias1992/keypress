@@ -1,8 +1,11 @@
+import AudioController from './audio_controller';
+
 class Header {
     constructor(lesson) {
         this.lesson = lesson;
-        this.audio = true;
+        this.sound = undefined;
         this.renderLessonName = this.renderLessonName.bind(this);
+        this.renderControllers = this.renderControllers.bind(this);
     }
 
     renderMenu(parentElement) {
@@ -25,11 +28,11 @@ class Header {
         const controllers = document.createElement("div");
         controllers.className = "right-controllers";
         parentElement.appendChild(controllers);
+        const audioController = document.createElement("div");
+        controllers.appendChild(audioController);
 
-        const sound = document.createElement("button");
-        sound.className = "sound";
-        sound.innerHTML = '<i class="fas fa-volume-up"></i>';
-        controllers.appendChild(sound);
+        this.sound = new AudioController("assets/audio/key-press.mp3", audioController);
+        this.sound.render();
     }
 
     render() {

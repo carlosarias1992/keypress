@@ -10,6 +10,7 @@ class Play {
         this.lesson = undefined;
         this.stats = undefined;
         this.keyboard = undefined;
+        this.header = undefined;
         this.parentElement = parentElement;
         this.renderKeyboard = this.renderKeyboard.bind(this);
         this.renderStats = this.renderStats.bind(this);
@@ -89,7 +90,7 @@ class Play {
     }
 
     handleInput() {
-        const { lesson, keyboard, stats, scrollDown, scrollUp } = this;
+        const { lesson, keyboard, stats, scrollDown, scrollUp, header } = this;
         const statsSection = document.createElement("div");
 
         document.addEventListener("keypress", e => {
@@ -102,7 +103,7 @@ class Play {
             }
 
             if (lesson.currentLetterIndex < lesson.letters.length) {
-                const audio = new Audio("assets/audio/key-press.mp3");
+                const audio = header.sound;
                 audio.play();
                 keyboard.render(currentLetter);
             }
@@ -120,7 +121,7 @@ class Play {
 
         document.addEventListener("keydown", e => {
             const currentLetter = lesson.letters[lesson.currentLetterIndex - 1];
-            const audio = new Audio("assets/audio/key-press.mp3");
+            const audio = header.sound;
             audio.play();
             lesson.handleBackspace(e);
 
@@ -135,10 +136,10 @@ class Play {
         this.lesson = new Lesson(this.lessonNumber);
         const { lesson, parentElement, renderKeyboard, lessonNumber } = this;
 
-        const header = new Header(lessons[lessonNumber]);
+        this.header = new Header(lessons[lessonNumber]);
         this.stats = new Stats(lesson.letters);
 
-        parentElement.appendChild(header.render());
+        parentElement.appendChild(this.header.render());
         parentElement.appendChild(lesson.render());
         lesson.moveCursor();
 
