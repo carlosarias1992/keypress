@@ -1,7 +1,6 @@
-import Play from './play';
+import Game from './game';
 
 document.addEventListener("DOMContentLoaded", () => {
-    const root = document.getElementById("root");
-    const play = new Play(4, root);
-    play.render();
+    const game = new Game();
+    game.startLesson(0);
 });

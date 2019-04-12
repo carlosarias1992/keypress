@@ -4,19 +4,24 @@ import Stats from './stats';
 import Header from './header';
 import lessons from './lessons';
 
-class Play {
-    constructor(lessonNumber, parentElement) {
-        this.lessonNumber = lessonNumber;
+class Game {
+    constructor() {
+        this.lessonNumber = undefined;
         this.lesson = undefined;
         this.stats = undefined;
         this.keyboard = undefined;
         this.header = undefined;
-        this.parentElement = parentElement;
+        this.parentElement = document.getElementById("root");
         this.renderKeyboard = this.renderKeyboard.bind(this);
         this.renderStats = this.renderStats.bind(this);
         this.getCurrentSpeed = this.getCurrentSpeed.bind(this);
         this.handleInput = this.handleInput.bind(this);
     }
+
+    startLesson(lessonNumber) {
+        this.lessonNumber = lessonNumber;
+        this.render();
+    } 
 
     getCurrentSpeed() {
         const currentLetters = this.lesson.letters.slice(0, this.lesson.currentLetterIndex);
@@ -151,4 +156,4 @@ class Play {
     }
 }
 
-export default Play;
+export default Game;
