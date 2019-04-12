@@ -22,7 +22,7 @@ button {
     border: none;
     font-size: 20px;
     color: #757575;
-    transition: 0.4s;
+    transition: 0.3s;
     cursor: pointer;
     outline: none;
 }
@@ -177,6 +177,10 @@ pre {
 
 .menu:hover {
     color: #1956ea;
+}
+
+.right-controllers {
+    display: flex;
 }
 
 

@@ -16,10 +16,14 @@ class Game {
         this.renderStats = this.renderStats.bind(this);
         this.getCurrentSpeed = this.getCurrentSpeed.bind(this);
         this.handleInput = this.handleInput.bind(this);
+        this.handleKeypress = this.handleKeypress.bind(this);
+        this.handleKeydown = this.handleKeydown.bind(this);
+        this.startLesson = this.startLesson.bind(this);
     }
 
     startLesson(lessonNumber) {
         this.lessonNumber = lessonNumber;
+        this.parentElement.innerHTML = '';
         this.render();
     } 
 
@@ -94,47 +98,54 @@ class Game {
         }
     }
 
-    handleInput() {
-        const { lesson, keyboard, stats, scrollDown, scrollUp, header } = this;
+    handleKeypress(e) {
+        const { lesson, keyboard, stats, scrollDown, header } = this;
+        
         const statsSection = document.createElement("div");
+        const currentLetter = lesson.letters[lesson.currentLetterIndex + 1];
+        lesson.handleInput(e);
+        scrollDown();
 
-        document.addEventListener("keypress", e => {
-            const currentLetter = lesson.letters[lesson.currentLetterIndex + 1];
-            lesson.handleInput(e);
-            scrollDown();
+        if (lesson.currentLetterIndex === 1) {
+            stats.startTimer();
+        }
 
-            if (lesson.currentLetterIndex === 1) {
-                stats.startTimer();
-            }
-
-            if (lesson.currentLetterIndex < lesson.letters.length) {
-                const audio = header.sound;
-                audio.play();
-                keyboard.render(currentLetter);
-            }
-
-            if (lesson.currentLetterIndex === 9) {
-                this.renderStats(statsSection);
-            } else if (lesson.currentLetterIndex > 9) {
-                const accuracy = document.querySelector(".accuracy");
-                accuracy.innerHTML = `${stats.accuracy(this.lesson.wrongLetters, this.lesson.editedLetters)}%`;
-                
-                const speed = document.querySelector(".speed");
-                speed.innerHTML = `${this.getCurrentSpeed()} WPM`;
-            }
-        });
-
-        document.addEventListener("keydown", e => {
-            const currentLetter = lesson.letters[lesson.currentLetterIndex - 1];
+        if (lesson.currentLetterIndex < lesson.letters.length) {
             const audio = header.sound;
             audio.play();
-            lesson.handleBackspace(e);
+            keyboard.render(currentLetter);
+        }
 
-            if (currentLetter && lesson.currentLetterIndex < lesson.letters.length && e.key === "Backspace") {
-                keyboard.render(currentLetter);
-                scrollUp();
-            }
-        });
+        if (lesson.currentLetterIndex === 9) {
+            this.renderStats(statsSection);
+        } else if (lesson.currentLetterIndex > 9 && lesson.currentLetterIndex < lesson.letters.length) {
+            const accuracy = document.querySelector(".accuracy");
+            accuracy.innerHTML = `${stats.accuracy(this.lesson.wrongLetters, this.lesson.editedLetters)}%`;
+
+            const speed = document.querySelector(".speed");
+            speed.innerHTML = `${this.getCurrentSpeed()} WPM`;
+        }
+    }
+
+    handleKeydown(e) {
+        const { lesson, keyboard, scrollUp, header } = this;
+
+        const currentLetter = lesson.letters[lesson.currentLetterIndex - 1];
+        lesson.handleBackspace(e);
+
+        if (currentLetter && lesson.currentLetterIndex < lesson.letters.length && e.key === "Backspace") {
+            const audio = header.sound;
+            audio.play();
+            keyboard.render(currentLetter);
+            scrollUp();
+        }
+    }
+
+    handleInput() {
+        const { handleKeydown, handleKeypress } = this;
+
+        document.addEventListener("keypress", handleKeypress);
+        document.addEventListener("keydown", handleKeydown);
     }
 
     render() {
