@@ -64,7 +64,7 @@ class Play {
             const timerId = setInterval(() => {
                 lessonContainer.scrollTop += 1;
 
-                if (lessonContainer.scrollTop + 8 > cursor.offsetTop) {
+                if (lessonContainer.scrollTop + 5 > cursor.offsetTop) {
                     clearInterval(timerId);
                 }
             }, 12);

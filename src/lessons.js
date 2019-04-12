@@ -10,5 +10,9 @@ export default {
     2: {
         lessonName: "Capital Letters",
         content: "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+    },
+    3: {
+        lessonName: "Lowercase Letters",
+        content: "abcdefghijklmnopqrstuvwxyz"
     }
 };
