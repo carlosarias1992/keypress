@@ -91,7 +91,7 @@ class Play {
         const statsSection = document.createElement("div");
 
         document.addEventListener("keypress", e => {
-            const currentLetter = lesson.letters[lesson.currentLetterIndex];
+            const currentLetter = lesson.letters[lesson.currentLetterIndex + 1];
             lesson.handleInput(e);
             scrollDown();
 
@@ -115,10 +115,10 @@ class Play {
         });
 
         document.addEventListener("keydown", e => {
-            const currentLetter = lesson.letters[lesson.currentLetterIndex];
+            const currentLetter = lesson.letters[lesson.currentLetterIndex - 1];
             lesson.handleBackspace(e);
 
-            if (lesson.currentLetterIndex < lesson.letters.length && e.key === "Backspace") {
+            if (currentLetter && lesson.currentLetterIndex < lesson.letters.length && e.key === "Backspace") {
                 keyboard.render(currentLetter);
                 scrollUp();
             }
