@@ -1,6 +1,7 @@
 import Lesson from './lesson';
 import Keyboard from './keyboard';
 import Stats from './stats';
+import Header from './header';
 
 class Play {
     constructor(lessonNumber, parentElement) {
@@ -129,8 +130,10 @@ class Play {
         this.lesson = new Lesson(this.lessonNumber);
         const { lesson, parentElement, renderKeyboard } = this;
 
+        const header = new Header(lesson);
         this.stats = new Stats(lesson.letters);
 
+        parentElement.appendChild(header.render());
         parentElement.appendChild(lesson.render());
         lesson.moveCursor();
 
