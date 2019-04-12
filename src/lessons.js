@@ -14,5 +14,9 @@ export default {
     3: {
         lessonName: "Lowercase Letters",
         content: "abcdefghijklmnopqrstuvwxyz"
+    },
+    4: {
+        lessonName: "Numbers",
+        content: "a1234567890"
     }
 };
