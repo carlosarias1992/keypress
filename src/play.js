@@ -54,13 +54,23 @@ class Play {
         this.parentElement.appendChild(keyboardParentElement);
     }
 
+    scrollDown() {
+        const cursor = document.querySelector(".cursor");
+        const lessonContainer = document.querySelector(".lesson-container");
+
+        if (cursor && cursor.offsetTop > lessonContainer.scrollTop + 5) {
+            lessonContainer.scrollTop += 51;
+        }
+    }
+
     handleInput() {
-        const { lesson, keyboard, stats } = this;
+        const { lesson, keyboard, stats, scrollDown } = this;
         const statsSection = document.createElement("div");
 
         document.addEventListener("keypress", e => {
             const currentLetter = lesson.letters[lesson.currentLetterIndex];
             lesson.handleInput(e);
+            scrollDown();
 
             if (lesson.currentLetterIndex === 1) {
                 stats.startTimer();

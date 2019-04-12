@@ -70,7 +70,7 @@ class Lesson {
 
     updateCompletionBar() {
         const bar = document.querySelector(".completion-bar");
-        const width = (this.currentLetterIndex / (this.letters.length)) * 100;
+        const width = (this.currentLetterIndex / (this.letters.length)) * 65;
         bar.style.width = `${width}%`;
     }
 
