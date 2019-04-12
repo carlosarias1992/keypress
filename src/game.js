@@ -15,6 +15,7 @@ class Game {
         this.renderKeyboard = this.renderKeyboard.bind(this);
         this.renderStats = this.renderStats.bind(this);
         this.getCurrentSpeed = this.getCurrentSpeed.bind(this);
+        this.getCurrentAccuracy = this.getCurrentAccuracy.bind(this);
         this.handleInput = this.handleInput.bind(this);
         this.handleKeypress = this.handleKeypress.bind(this);
         this.handleKeydown = this.handleKeydown.bind(this);
@@ -27,9 +28,18 @@ class Game {
         this.render();
     } 
 
+    getCurrentAccuracy() {
+        const { lesson, stats } = this;
+
+        const currentLetters = lesson.letters.slice(0, lesson.currentLetterIndex);
+        return stats.currentAccuracy(lesson.wrongLetters, lesson.editedLetters, currentLetters);
+    }
+
     getCurrentSpeed() {
-        const currentLetters = this.lesson.letters.slice(0, this.lesson.currentLetterIndex);
-        return this.stats.currentSpeed(currentLetters);
+        const { lesson, stats } = this;
+
+        const currentLetters = lesson.letters.slice(0, lesson.currentLetterIndex);
+        return stats.currentSpeed(currentLetters);
     }
 
     statsElement(parentElement, valueName) {
@@ -42,7 +52,7 @@ class Game {
         value.className = valueName.toLowerCase();
 
         if (valueName === "Accuracy") {
-            value.innerHTML = `${this.stats.accuracy(this.lesson.wrongLetters, this.lesson.editedLetters)}%`;
+            value.innerHTML = `${this.getCurrentAccuracy()}%`;
         } else if (valueName === "Speed") {
             value.innerHTML = `${this.getCurrentSpeed()} WPM`;
         }
@@ -100,7 +110,7 @@ class Game {
 
     handleKeypress(e) {
         const { lesson, keyboard, stats, scrollDown, header } = this;
-        
+
         const statsSection = document.createElement("div");
         const currentLetter = lesson.letters[lesson.currentLetterIndex + 1];
         lesson.handleInput(e);
@@ -120,7 +130,7 @@ class Game {
             this.renderStats(statsSection);
         } else if (lesson.currentLetterIndex > 9 && lesson.currentLetterIndex < lesson.letters.length) {
             const accuracy = document.querySelector(".accuracy");
-            accuracy.innerHTML = `${stats.accuracy(this.lesson.wrongLetters, this.lesson.editedLetters)}%`;
+            accuracy.innerHTML = `${this.getCurrentAccuracy()}%`;
 
             const speed = document.querySelector(".speed");
             speed.innerHTML = `${this.getCurrentSpeed()} WPM`;
