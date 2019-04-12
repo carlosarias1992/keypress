@@ -39,12 +39,14 @@ class Play {
     }
 
     renderStats(statsParentElement) {
-        statsParentElement.className = "stats";
+        if (!document.querySelector(".stats")) {
+            statsParentElement.className = "stats";
 
-        this.statsElement(statsParentElement, "Accuracy");
-        this.statsElement(statsParentElement, "Speed");
+            this.statsElement(statsParentElement, "Accuracy");
+            this.statsElement(statsParentElement, "Speed");
 
-        this.parentElement.appendChild(statsParentElement);
+            this.parentElement.appendChild(statsParentElement);
+        }
     }
 
     renderKeyboard(keyboardParentElement) {
@@ -58,9 +60,15 @@ class Play {
         const cursor = document.querySelector(".cursor");
         const lessonContainer = document.querySelector(".lesson-container");
 
-        if (cursor && cursor.offsetTop > lessonContainer.scrollTop + 5) {
-            lessonContainer.scrollTop += 51;
-        }
+        if (cursor && cursor.offsetTop > lessonContainer.scrollTop + 5 && lessonContainer.scrollHeight - cursor.offsetTop >= 207) {
+            const timerId = setInterval(() => {
+                lessonContainer.scrollTop += 1;
+
+                if (lessonContainer.scrollTop + 8 > cursor.offsetTop) {
+                    clearInterval(timerId);
+                }
+            }, 12);
+        } 
     }
 
     scrollUp() {
@@ -68,7 +76,13 @@ class Play {
         const lessonContainer = document.querySelector(".lesson-container");
 
         if (cursor.offsetTop < lessonContainer.scrollTop) {
-            lessonContainer.scrollTop -= 50;
+            const timerId = setInterval(() => {
+                lessonContainer.scrollTop -= 1;
+
+                if (lessonContainer.scrollTop + 1 < cursor.offsetTop) {
+                    clearInterval(timerId);
+                }
+            }, 12);
         }
     }
 
