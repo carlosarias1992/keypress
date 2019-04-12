@@ -7,6 +7,29 @@ body {
     padding: 0;
 }
 
+header {
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 1px #dddddd solid;
+    font-family: sans-serif;
+    background-color: white;
+    padding: 10px 20px;
+    color: #757575;
+}
+
+button {
+    background: none;
+    border: none;
+    font-size: 20px;
+    color: #757575;
+    transition: 0.4s;
+    cursor: pointer;
+}
+
+button:hover {
+    color: black;
+}
+
 pre {
     margin: 0;
 }
@@ -64,7 +87,7 @@ pre {
     height: 3px;
     width: 0;
     position: fixed;
-    top: 257px;
+    top: 303px;
     transition: 1s;
 }
 
@@ -82,7 +105,7 @@ pre {
     justify-content: center;
     position: absolute;
     width: 100%;
-    top: 265px;
+    top: 310px;
     color: #888;
     font-family: sans-serif;
     text-align: center;
@@ -140,3 +163,19 @@ pre {
 .fa-github, .fa-linkedin {
     font-size: 30px;
 }
+
+.left-controllers {
+    display: flex;
+    align-items: center;
+}
+
+.menu {
+    margin-right: 5px;
+    color: #3b75d9;
+}
+
+.menu:hover {
+    color: #1956ea;
+}
+
+

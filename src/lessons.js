@@ -1,22 +1,27 @@
 export default {
     0: {
-        lessonName: "Hello World", 
+        id: 0,
+        name: "Hello World", 
         content: "Hello world!"
     },
     1: {
-        lessonName: "Lorem Ipsum",
+        id: 1,
+        name: "Lorem Ipsum",
         content: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla leo dui, lobortis vitae nibh vitae, tempor bibendum nisi. Maecenas tempor feugiat dignissim. Cras placerat enim at mi consequat, ac eleifend enim viverra."
     },
     2: {
-        lessonName: "Capital Letters",
+        id: 2,
+        name: "Capital Letters",
         content: "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
     },
     3: {
-        lessonName: "Lowercase Letters",
+        id: 3,
+        name: "Lowercase Letters",
         content: "abcdefghijklmnopqrstuvwxyz"
     },
     4: {
-        lessonName: "Numbers",
+        id: 4,
+        name: "Numbers",
         content: "a1234567890"
     }
 };

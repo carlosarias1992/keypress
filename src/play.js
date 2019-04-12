@@ -2,6 +2,7 @@ import Lesson from './lesson';
 import Keyboard from './keyboard';
 import Stats from './stats';
 import Header from './header';
+import lessons from './lessons';
 
 class Play {
     constructor(lessonNumber, parentElement) {
@@ -101,6 +102,8 @@ class Play {
             }
 
             if (lesson.currentLetterIndex < lesson.letters.length) {
+                const audio = new Audio("assets/audio/key-press.mp3");
+                audio.play();
                 keyboard.render(currentLetter);
             }
 
@@ -117,6 +120,8 @@ class Play {
 
         document.addEventListener("keydown", e => {
             const currentLetter = lesson.letters[lesson.currentLetterIndex - 1];
+            const audio = new Audio("assets/audio/key-press.mp3");
+            audio.play();
             lesson.handleBackspace(e);
 
             if (currentLetter && lesson.currentLetterIndex < lesson.letters.length && e.key === "Backspace") {
@@ -128,9 +133,9 @@ class Play {
 
     render() {
         this.lesson = new Lesson(this.lessonNumber);
-        const { lesson, parentElement, renderKeyboard } = this;
+        const { lesson, parentElement, renderKeyboard, lessonNumber } = this;
 
-        const header = new Header(lesson);
+        const header = new Header(lessons[lessonNumber]);
         this.stats = new Stats(lesson.letters);
 
         parentElement.appendChild(header.render());
