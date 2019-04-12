@@ -23,5 +23,20 @@
     text-align: left;
     padding-left: 10px;
     text-shadow: 2px 3px 6px #fff, 0 0 0 #000, 2px 3px 6px #fff;
-    font-size: 30px;
+    font-size: 34px;
+}
+
+.button-image {
+    height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 10px;
+}
+
+.all-lessons .empty-button {
+    cursor: auto;
+    box-shadow: none;
+    border: none;
+    outline: none;
 }

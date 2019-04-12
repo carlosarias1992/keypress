@@ -32,6 +32,10 @@ class HomePage {
         buttonImage.className = "button-image";
         buttonImage.innerHTML = "";
 
+        const image = document.createElement("img");
+        image.src = `assets/images/levels/${lesson.level}.png`;
+        buttonImage.appendChild(image);
+
         return buttonImage;
     }
 
@@ -63,6 +67,14 @@ class HomePage {
 
             row.appendChild(this.renderLessonBox(lesson));
         });
+
+        const emptyButtons = (5 - (Object.values(lessons).length % 5));
+
+        for (let i = 0; i < emptyButtons; i++) {
+            const emptyButton = document.createElement("button");
+            emptyButton.className = "col-sm empty-button";
+            row.appendChild(emptyButton);
+        }
 
         this.parentElement.appendChild(lessonsContainer);
     }

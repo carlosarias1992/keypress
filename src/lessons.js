@@ -39,18 +39,18 @@ export default {
         id: 7,
         name: 'California',
         content: "California is a big power in American culture as well as the business life of the nation. Many of the great changes in technology and law came from California, and the state pays more to the U.S. government than it gets back. It also has some of the country's largest cities, such as Los Angeles, San Diego, San Jose, and San Francisco.",
-        level: 8
+        level: 7
     },
     8: {
         id: 8,
         name: 'Red Pandas',
         content: "Red pandas are native to the Himalayas and southwestern China. The English word for red panda is \"Firefox\" which is where the popular web browser gets its name from. Many people think that the Firefox logo is a fox, but the truth is that the logo is actually a red panda. The browser was created in 2002 and its full name id Mozilla Firefox.",
-        level: 9
+        level: 8
     },
     9: {
         id: 9,
         name: 'Our Solar System', 
         content: "There are eight planets in the solar system. From closest to farthest from the Sun, they are: Mercury, Venus, Earth, Mars, Jupiter, Saturn, Uranus, and Neptune. A fun way to remember the order of the planets is to use a mnemonic device: My Very Excellent Mother Just Served Us Noodles. Each letter represents the name of one planet.",
-        level: 10
+        level: 9
     }
 };
