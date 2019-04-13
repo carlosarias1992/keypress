@@ -14,8 +14,13 @@
     border: 1px #b5b5b5 solid;
 }
 
+.all-lessons button:focus {
+    outline: none;
+}
+
 .all-lessons button:hover {
     box-shadow: 0 2px 6px 0 rgba(0,0,0,0.6);
+    color: #0a6bf9;
 }
 
 .all-lessons button:hover .button-header {

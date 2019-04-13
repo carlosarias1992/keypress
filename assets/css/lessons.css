@@ -15,6 +15,8 @@ body {
     background-color: white;
     padding: 10px 20px;
     color: #757575;
+    position: relative;
+    z-index: 1;
 }
 
 button {
@@ -209,6 +211,60 @@ pre {
 
 .title {
     font-size: 18px;
+}
+
+.slide-in {
+    animation: slide-in;
+    animation-duration: 1s;
+}
+
+.slide-out {
+    animation: slide-out;
+    animation-duration: 1s;
+}
+
+@keyframes slide-in {
+    0% {
+        transform: translateY(-1000px);
+    }
+    80% {
+        transform: translateY(20px);
+    }
+    100% {
+        transform: translateY(0);
+    }
+}
+
+@keyframes slide-out {
+    0% {
+        transform: translateY(0);
+    }
+    20% {
+        transform: translateY(20px);
+    }
+    100% {
+        transform: translateY(-1000px);
+    }
+}
+
+.banner {
+    width: 85px;
+    height: 200px;
+    background-color: #0a6bf9;
+    position: absolute;
+    top: 0;
+    left: 7%;
+    display: flex;
+    align-items: flex-end;
+    color: white;
+    font-family: sans-serif;
+    text-align: center;
+    padding: 15px;
+    border-radius: 10px;
+}
+
+.remove-banner {
+    display: none;
 }
 
 

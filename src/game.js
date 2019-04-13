@@ -1,6 +1,7 @@
 import Lesson from './lesson';
 import Keyboard from './keyboard';
 import Stats from './stats';
+import { addClass, removeClass } from './util';
 
 class Game {
     constructor(header, audioController) {
@@ -8,6 +9,7 @@ class Game {
         this.lessonObject = undefined;
         this.stats = undefined;
         this.keyboard = undefined;
+        this.banner = undefined;
         this.header = header;
         this.audioController = audioController;
         this.parentElement = document.getElementById("root");
@@ -24,6 +26,7 @@ class Game {
         this.lesson = undefined;
         this.stats = undefined;
         this.keyboard = undefined;
+        this.banner = undefined;
         this.parentElement.innerHTML = '';
         this.render(this.lessonObject);
     }
@@ -59,6 +62,14 @@ class Game {
         }
 
         holder.appendChild(value);
+    }
+
+    renderBanner() {
+        const banner = document.createElement("div");
+        this.banner = banner;
+        banner.className = "banner slide-in";
+        banner.innerHTML = "Start Typing";
+        this.parentElement.append(banner);
     }
 
     renderStats(statsParentElement) {
@@ -110,7 +121,9 @@ class Game {
     }
 
     handleKeypress(e) {
-        const { lesson, keyboard, stats, scrollDown, audioController } = this;
+        const { 
+            lesson, keyboard, stats, scrollDown, audioController, banner
+        } = this;
 
         const statsSection = document.createElement("div");
         const currentLetter = lesson.letters[lesson.currentLetterIndex + 1];
@@ -118,6 +131,11 @@ class Game {
         scrollDown();
 
         if (lesson.currentLetterIndex === 1) {
+            removeClass(banner, "slide-in");
+            addClass(banner, "slide-out");
+            setTimeout(() => {
+                addClass(banner, "remove-banner");
+            }, 1000);
             stats.startTimer();
         }
 
@@ -173,6 +191,7 @@ class Game {
         this.keyboard = new Keyboard(keyboardSection);
         renderKeyboard(keyboardSection);
 
+        this.renderBanner();
         this.handleInput();
     }
 }
