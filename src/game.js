@@ -4,8 +4,8 @@ import Stats from './stats';
 
 class Game {
     constructor(header, audioController) {
-        this.lessonObject = header.lesson;
         this.lesson = undefined;
+        this.lessonObject = undefined;
         this.stats = undefined;
         this.keyboard = undefined;
         this.header = header;
@@ -18,20 +18,14 @@ class Game {
         this.handleInput = this.handleInput.bind(this);
         this.handleKeypress = this.handleKeypress.bind(this);
         this.handleKeydown = this.handleKeydown.bind(this);
-        this.startLesson = this.startLesson.bind(this);
     }
-
-    startLesson() {
-        this.parentElement.innerHTML = '';
-        this.render();
-    } 
 
     restart() {
         this.lesson = undefined;
         this.stats = undefined;
         this.keyboard = undefined;
         this.parentElement.innerHTML = '';
-        this.render();
+        this.render(this.lessonObject);
     }
 
     getCurrentAccuracy() {
@@ -163,13 +157,15 @@ class Game {
         document.addEventListener("keydown", handleKeydown);
     }
 
-    render() {
-        this.lesson = new Lesson(this.lessonObject.id);
+    render(lessonObject) {
+        this.lessonObject = lessonObject;
+        this.parentElement.innerHTML = '';
+        this.lesson = new Lesson(lessonObject.id);
         const { lesson, parentElement, renderKeyboard, header } = this;
 
         this.stats = new Stats(lesson.letters);
 
-        parentElement.appendChild(header.render());
+        parentElement.appendChild(header.render(lessonObject));
         parentElement.appendChild(lesson.render());
         lesson.moveCursor();
 

@@ -1,14 +1,12 @@
-import Game from './game';
-
 class Header {
-    constructor(lesson, lessonPage) {
-        this.lesson = lesson;
+    constructor(lessonPage) {
         this.lessonPage = lessonPage;
         this.restart = false;
         this.audioController = lessonPage.audioController;
         this.renderLessonName = this.renderLessonName.bind(this);
         this.renderControllers = this.renderControllers.bind(this);
         this.restartLesson = this.restartLesson.bind(this);
+        this.renderMenu = this.renderMenu.bind(this);
     }
 
     restartLesson() {
@@ -16,15 +14,15 @@ class Header {
     }
 
     renderMenu(parentElement) {
+        const { lessonPage } = this;
         const menu = document.createElement("button");
+        menu.onclick = lessonPage.renderHome;
         menu.className = "menu";
         parentElement.appendChild(menu);
         menu.innerHTML = '<i class="fas fa-bars"></i>';
     }
 
-    renderLessonName(parentElement) {
-        const { lesson } = this;
-
+    renderLessonName(parentElement, lesson) {
         const lessonName = document.createElement("div");
         lessonName.className = "lesson-name";
         parentElement.appendChild(lessonName);
@@ -50,7 +48,7 @@ class Header {
         this.audioController.render(audioControllerDiv);
     }
 
-    render() {
+    render(lesson) {
         const { renderMenu, renderLessonName, renderControllers } = this;
 
         const header = document.createElement("header");
@@ -58,7 +56,7 @@ class Header {
         leftControllers.className = "left-controllers";
         header.appendChild(leftControllers);
         renderMenu(leftControllers);
-        renderLessonName(leftControllers);
+        renderLessonName(leftControllers, lesson);
         renderControllers(header);
 
         return header;

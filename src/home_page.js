@@ -1,14 +1,14 @@
-import LessonPage from './lesson_page';
 import lessons from './lessons';
 
 class HomePage {
-    constructor() {
+    constructor(lessonPage) {
         this.parentElement = document.getElementById("root");
+        this.lessonPage = lessonPage;
+        this.render = this.render.bind(this);
     }
 
     renderLesson(lessonNumber) {
-        const lesson = new LessonPage(lessonNumber);
-        lesson.render();
+        this.lessonPage.render(lessons[lessonNumber]);
     }
 
     buttonHeader(lesson) {
@@ -47,6 +47,7 @@ class HomePage {
     }
 
     render() {
+        this.parentElement.innerHTML = '';
         const lessonsContainer = document.createElement("div");
         lessonsContainer.className = "all-lessons";
         const allLessons = document.createElement("div");
