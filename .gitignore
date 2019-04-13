@@ -8,4 +8,4 @@ node_modules
 
 # Webpack #
 ###########
-bundle.js
+main.js
