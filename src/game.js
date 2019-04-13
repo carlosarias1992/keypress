@@ -20,6 +20,7 @@ class Game {
         this.handleInput = this.handleInput.bind(this);
         this.handleKeypress = this.handleKeypress.bind(this);
         this.handleKeydown = this.handleKeydown.bind(this);
+        this.removeBanner = this.removeBanner.bind(this);
     }
 
     restart() {
@@ -62,6 +63,19 @@ class Game {
         }
 
         holder.appendChild(value);
+    }
+
+    removeBanner() {
+        let top = 0;
+
+        const timerId = setInterval(() => {
+            top -= 2;
+            this.banner.style.top = `${top}px`;
+
+            if (top < -200) {
+                clearInterval(timerId);
+            }
+        }, 5);
     }
 
     renderBanner() {
@@ -122,7 +136,7 @@ class Game {
 
     handleKeypress(e) {
         const { 
-            lesson, keyboard, stats, scrollDown, audioController, banner
+            lesson, keyboard, stats, scrollDown, audioController
         } = this;
 
         const statsSection = document.createElement("div");
@@ -131,11 +145,7 @@ class Game {
         scrollDown();
 
         if (lesson.currentLetterIndex === 1) {
-            removeClass(banner, "slide-in");
-            addClass(banner, "slide-out");
-            setTimeout(() => {
-                addClass(banner, "remove-banner");
-            }, 1000);
+            this.removeBanner();
             stats.startTimer();
         }
 
