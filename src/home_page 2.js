@@ -29,8 +29,12 @@ class HomePage {
 
     buttonImage(lesson) {
         const buttonImage = document.createElement("div");
-        buttonImage.className = `button-image general-icon level-${lesson.level}`;
+        buttonImage.className = "button-image";
         buttonImage.innerHTML = "";
+
+        const image = document.createElement("img");
+        image.src = `assets/images/levels/${lesson.level}.png`;
+        buttonImage.appendChild(image);
 
         return buttonImage;
     }

@@ -103,7 +103,12 @@ pre {
 }
 
 .keyboard img {
-    margin-top: 100px;
+    margin-top: 112px;
+}
+
+@keyframes reveal {
+    0% {opacity: 0;}
+    100% {opacity: 1;}
 }
 
 .stats {
@@ -111,10 +116,12 @@ pre {
     justify-content: center;
     position: absolute;
     width: 100%;
-    top: 314px;
+    top: 320px;
     color: #888;
     font-family: sans-serif;
     text-align: center;
+    animation-name: reveal;
+    animation-duration: 1s;
 }
 
 .stats h2 {
@@ -186,6 +193,10 @@ pre {
 
 .right-controllers {
     display: flex;
+}
+
+.right-controllers button:focus {
+    outline: none;
 }
 
 .right-controllers > button {

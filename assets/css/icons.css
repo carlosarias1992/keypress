@@ -1,0 +1,57 @@
+.general-icon {
+    width: 100px;
+    margin: 0 auto;
+    background: url('../images/general.svg') no-repeat 200% 0;
+}
+
+.level-1 {
+    background-position: 71.429% 66.667%;
+}
+
+.level-2 {
+    background-position: 71.429% 82.7%;
+}
+
+.level-3 {
+    background-position: 85.714% 2.05%;
+}
+
+.level-4 {
+    background-position: 85.714% 18.15%;
+}
+
+.level-5 {
+    background-position: 85.714% 34.333%;
+}
+
+.level-6 {
+    background-position: 85.714% 50.5%;
+}
+
+.level-7 {
+    background-position: 85.714% 66.55%;
+}
+
+.level-8 {
+    background-position: 85.714% 82.7%;
+}
+
+.level-9 {
+    background-position: 0 82.7%;
+}
+
+.level-10 {
+    background-position: 14.286% 82.4%;
+}
+
+.level-11 {
+    background-position: 28.571% 83.333%;
+}
+
+.level-12 {
+    background-position: 42.857% 83.333%;
+}
+
+.level-13 {
+    background-position: 57.143% 83.333%;
+}
