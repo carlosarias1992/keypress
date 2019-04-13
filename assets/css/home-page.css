@@ -1,7 +1,7 @@
 .all-lessons {
     width: 80%;
     margin: auto;
-    margin-top: 55px;
+    margin-top: 60px;
     margin-bottom: 80px;
 } 
 
@@ -69,12 +69,30 @@ footer {
     border-top: 0.5px #b5b5b5 solid;
 }
 
+.main-header a:hover {
+    text-decoration: none;
+}
+
+#root header.main-header a {
+    color: black;
+    font-size: 20px;
+    transition: 0.3s;
+}
+
+#root header.main-header a:hover {
+    color: #0a6bf9;
+}
+
+#root header.main-header img {
+    width: 30px;
+    height: 30px;
+    margin-right: 10px;
+}
 #root header.main-header {
     position: fixed;
     top: 0;
+    display: flex;
     width: 100%;
-}
-
-.main-header a:hover {
-    text-decoration: none;
+    justify-content: flex-start;
+    align-items: center;
 }

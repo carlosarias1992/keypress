@@ -50,10 +50,12 @@ class HomePage {
     renderHeader() {
         const header = document.createElement("header");
         header.className = "main-header";
+        
         const link = document.createElement("a");
         link.href = "./index.html";
-        link.innerHTML = "Keypress";
+        link.innerHTML = "<img src='assets/images/logo.png' />Keypress";
         header.appendChild(link);
+
         this.parentElement.appendChild(header);
     }
 
