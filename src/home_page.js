@@ -5,6 +5,7 @@ class HomePage {
         this.parentElement = document.getElementById("root");
         this.lessonPage = lessonPage;
         this.render = this.render.bind(this);
+        this.renderHeader = this.renderHeader.bind(this);
     }
 
     renderLesson(lessonNumber) {
@@ -46,8 +47,19 @@ class HomePage {
         return button;
     }
 
+    renderHeader() {
+        const header = document.createElement("header");
+        header.className = "main-header";
+        const link = document.createElement("a");
+        link.href = "./index.html";
+        link.innerHTML = "Keypress";
+        header.appendChild(link);
+        this.parentElement.appendChild(header);
+    }
+
     render() {
         this.parentElement.innerHTML = '';
+        this.renderHeader();
         const lessonsContainer = document.createElement("div");
         lessonsContainer.className = "all-lessons";
         const allLessons = document.createElement("div");
