@@ -26,26 +26,50 @@ class Lesson {
     renderLetter(letter) {
         const letterHolder = document.createElement("span");
         letterHolder.className = "letter-holder";
+        
+        if (letter === "\n") {
+            letterHolder.className += " enter";
+        }
+
         letterHolder.innerHTML = letter;
         return letterHolder;
     }
 
-    renderWord(word, lastWord) {
+    renderWord(parentElement, word, lastWord, nextLine) {
         const wordContainer = document.createElement("pre");
         wordContainer.className = "word-container";
-        const letters = word.split("");
-        
-        letters.forEach((letter, idx) => {
-            this.letters.push(letter);
-            wordContainer.appendChild(this.renderLetter(letter));
+        parentElement.appendChild(wordContainer);
 
-            if (idx === letters.length - 1 && !lastWord) {
-                this.letters.push(" ");
-                wordContainer.appendChild(this.renderLetter(" "));
-            }
-        });
+        if (word.includes("\n")) {
+            const words = word.split("\n");
 
-        return wordContainer;
+            words.forEach((word, idx) => {
+                if (idx === 0) {
+                    this.renderWord(parentElement, word, lastWord, true);
+                } else {
+                    this.renderWord(parentElement, word, lastWord);
+                }
+            });
+        } else {
+            const letters = word.split("");
+
+            letters.forEach((letter, idx) => {
+                this.letters.push(letter);
+                wordContainer.appendChild(this.renderLetter(letter));
+
+                if (idx === letters.length - 1 && nextLine) {
+                    this.letters.push("Enter");
+                    wordContainer.appendChild(this.renderLetter("\n"));
+                    const lineBreak = document.createElement("br");
+                    parentElement.appendChild(lineBreak);
+                }
+
+                if (idx === letters.length - 1 && !lastWord) {
+                    this.letters.push(" ");
+                    wordContainer.appendChild(this.renderLetter(" "));
+                }
+            });
+        }
     }
 
     render() {
@@ -54,7 +78,7 @@ class Lesson {
 
         this.words.forEach((word, idx) => {
             const lastWord = idx === this.words.length - 1 ? true : false;
-            lessonContainer.appendChild(this.renderWord(word, lastWord));
+            this.renderWord(lessonContainer, word, lastWord);
         });
 
         lessonContainer.appendChild(this.completionBar());

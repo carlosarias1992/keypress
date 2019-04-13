@@ -72,7 +72,7 @@ class Game {
             top -= 2;
             this.banner.style.top = `${top}px`;
 
-            if (top < -200) {
+            if (top < -150) {
                 clearInterval(timerId);
             }
         }, 5);

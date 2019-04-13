@@ -251,4 +251,9 @@ pre {
     border-radius: 10px;
 }
 
+.enter {
+    margin: 0 auto;
+    background: url(../images/enter.png) no-repeat 0;
+}
+
 

@@ -90,5 +90,9 @@ export default {
     '\'': 'symbols/single-quote.png',
     '/': 'symbols/slash.png',
     ' ': 'symbols/space.png',
-    '_': 'symbols/underscore.png'
+    '_': 'symbols/underscore.png',
+    '`': 'symbols/backtick.png',
+    '|': 'symbols/bar.png',
+    '\\': 'symbols/backslash.png',
+    '~': 'symbols/tilda.png' 
 };
