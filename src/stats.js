@@ -1,7 +1,10 @@
 class Stats {
-    constructor(content) {
+    constructor(lesson) {
         this.start = undefined;
-        this.content = content;
+        this.content = lesson.letters;
+        this.level = lesson.level;
+        this.wrongLetters = lesson.wrongLetters;
+        this.editedLetters = lesson.editedLetters;
         this.accuracy = this.accuracy.bind(this);
         this.realAccuracy = this.realAccuracy.bind(this);
     }
@@ -12,7 +15,7 @@ class Stats {
 
     duration() {
         const endTime = Date.now() - this.start;
-        return endTime / 1000;
+        return Math.ceil(endTime / 1000);
     }
 
     speed() {
@@ -27,14 +30,14 @@ class Stats {
         return Math.ceil((content.length / 4.5) / this.duration() * 60);
     }
 
-    accuracy(wrongLetters, editedLetters) {
-        const { content } = this;
+    accuracy() {
+        const { content, wrongLetters, editedLetters } = this;
         return Math.ceil(((content.length - wrongLetters.length + editedLetters.length) / content.length) * 100);
     }
 
-    realAccuracy(wrongLetters) {
-        const { content } = this;
-        return ((content.length - wrongLetters.length) / content.length) * 100;
+    realAccuracy() {
+        const { content, wrongLetters } = this;
+        return Math.ceil(((content.length - wrongLetters.length) / content.length) * 100);
     }
 }
 

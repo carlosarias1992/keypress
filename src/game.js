@@ -1,7 +1,7 @@
 import Lesson from './lesson';
 import Keyboard from './keyboard';
 import Stats from './stats';
-import { addClass, removeClass } from './util';
+import ReviewPage from './review_page';
 
 class Game {
     constructor(header, audioController) {
@@ -10,6 +10,7 @@ class Game {
         this.stats = undefined;
         this.keyboard = undefined;
         this.banner = undefined;
+        this.renderedReview = false;
         this.header = header;
         this.audioController = audioController;
         this.parentElement = document.getElementById("root");
@@ -136,7 +137,7 @@ class Game {
 
     handleKeypress(e) {
         const { 
-            lesson, keyboard, stats, scrollDown, audioController
+            lesson, keyboard, stats, scrollDown, audioController, renderedReview
         } = this;
 
         const statsSection = document.createElement("div");
@@ -162,6 +163,12 @@ class Game {
 
             const speed = document.querySelector(".speed");
             speed.innerHTML = `${this.getCurrentSpeed()} WPM`;
+        }
+
+        if (!renderedReview && lesson.currentLetterIndex === lesson.letters.length) {
+            this.renderedReview = true;
+            const reviewPage = new ReviewPage(stats);
+            reviewPage.render();
         }
     }
 
@@ -191,7 +198,7 @@ class Game {
         this.lesson = new Lesson(lessonObject.id);
         const { lesson, parentElement, renderKeyboard, header } = this;
 
-        this.stats = new Stats(lesson.letters);
+        this.stats = new Stats(lesson);
 
         parentElement.appendChild(header.render(lessonObject));
         parentElement.appendChild(lesson.render());
