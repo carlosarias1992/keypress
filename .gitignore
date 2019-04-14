@@ -5,7 +5,3 @@
 # Node #
 ########
 node_modules
-
-# Webpack #
-###########
-main.js
