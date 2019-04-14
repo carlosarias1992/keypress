@@ -1,14 +1,14 @@
-# Code Racer
+# Keypress
 
 ### Background
 
-Code Racer is a web application designed to teach programmers how to type. Code racer has a number of different lessons
+Keyrpress is a web application designed to teach programmers how to type. Keypress has a number of different lessons
 depending on the language that you are trying to learn. A user receives stats at the end of the lesson which will help
 determine long-term improvement in typing speed. 
 
 ### Functionality & MVP
 
-With Code Racer, users will be able to: 
+With Keypress, users will be able to: 
 
 - [ ] Choose a lesson
 - [ ] Begin typing as soon as the lesson loads
