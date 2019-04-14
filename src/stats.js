@@ -1,16 +1,20 @@
 import Requirements from './level_requirements';
+import { merge } from 'lodash';
 
 class Stats {
-    constructor(lesson) {
+    constructor(lesson, lessonPage) {
         this.start = undefined;
         this.content = lesson.letters;
         this.level = lesson.level;
+        this.lessonPage = lessonPage;
+        this.lesson = lesson;
         this.requirement = Requirements[lesson.level];
         this.wrongLetters = lesson.wrongLetters;
         this.editedLetters = lesson.editedLetters;
         this.accuracy = this.accuracy.bind(this);
         this.realAccuracy = this.realAccuracy.bind(this);
         this.rating = this.rating.bind(this);
+        this.saveLessonRating = this.saveLessonRating.bind(this);
     }
 
     startTimer() {
@@ -44,6 +48,10 @@ class Stats {
         return Math.ceil(((content.length - wrongLetters.length) / content.length) * 100);
     }
 
+    saveLessonRating() {
+        this.lessonPage.ratings = merge(this.lessonPage.ratings, { [this.lesson.id]: this.rating()} );
+    }
+
     rating() {
         const { requirement } = this;
         const realAccuracy = this.realAccuracy();
@@ -68,7 +76,7 @@ class Stats {
         } else if ((realAccuracy >= 90 && realAccuracy < 100) || (speed >= requirementHalfPoint && speed < requirement.goalSpeed)) {
             return {
                 rating: 4,
-                message: 'Excellent work! Now focus on surpassing the goal speed with 100% accuracy.'
+                message: 'Excellent work! Now focus on reaching the goal speed with 100% accuracy.'
             };
         } else if ((realAccuracy >= 100) || (speed >= requirement.goalSpeed)) {
             return {

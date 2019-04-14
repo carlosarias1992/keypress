@@ -55,3 +55,24 @@
 .level-13 {
     background-position: 57.143% 83.333%;
 }
+
+.button-stars {
+    height: 55px;
+    background: url('../images/stars.png') no-repeat 0 0;
+    background-size: 143px 330px;
+    position: absolute;
+    width: 100%;
+    top: 90px;
+}
+
+.stars-3 {
+    background-position: center 40%;
+}
+
+.stars-4 {
+    background-position: center 60%;
+}
+
+.stars-5 {
+    background-position: center 80%;
+}

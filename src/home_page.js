@@ -42,6 +42,7 @@ class HomePage {
         button.onclick = () => this.renderLesson(lesson.id);
         button.appendChild(this.buttonHeader(lesson));
         button.appendChild(this.buttonImage(lesson));
+        this.renderRating(button, lesson.id);
         button.appendChild(this.buttonFooter(lesson));
 
         return button;
@@ -57,6 +58,18 @@ class HomePage {
         header.appendChild(link);
 
         this.parentElement.appendChild(header);
+    }
+
+    renderRating(parentElement, lessonNumber) {
+        if (this.lessonPage.ratings[lessonNumber]) {
+            const ratingElement = document.createElement("div");
+            const rating = this.lessonPage.ratings[lessonNumber].rating;
+            ratingElement.className = `button-stars stars-${rating}`;
+
+            if (rating >= 3) {
+                parentElement.appendChild(ratingElement);
+            }
+        }
     }
 
     render() {

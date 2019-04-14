@@ -4,15 +4,16 @@ import Stats from './stats';
 import ReviewPage from './review_page';
 
 class Game {
-    constructor(header, audioController) {
+    constructor(lessonPage) {
         this.lesson = undefined;
         this.lessonObject = undefined;
         this.stats = undefined;
         this.keyboard = undefined;
         this.banner = undefined;
         this.renderedReview = false;
-        this.header = header;
-        this.audioController = audioController;
+        this.lessonPage = lessonPage;
+        this.header = lessonPage.header;
+        this.audioController = lessonPage.audioController;
         this.parentElement = document.getElementById("root");
         this.renderKeyboard = this.renderKeyboard.bind(this);
         this.renderStats = this.renderStats.bind(this);
@@ -199,7 +200,7 @@ class Game {
         this.lesson = new Lesson(lessonObject.id);
         const { lesson, parentElement, renderKeyboard, header } = this;
 
-        this.stats = new Stats(lesson);
+        this.stats = new Stats(lesson, this.lessonPage);
 
         parentElement.appendChild(header.render(lessonObject));
         parentElement.appendChild(lesson.render());

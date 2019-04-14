@@ -96,6 +96,7 @@ class ReviewPage {
         reviewPage.appendChild(reviewMessage);
 
         reviewPage.appendChild(this.renderScore());
+        this.stats.saveLessonRating();
     }
 }
 
