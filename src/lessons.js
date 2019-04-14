@@ -1,10 +1,4 @@
 export default {
-    0: {
-        id: 0,
-        name: 'Hello World',
-        content: "Hello world!",
-        level: 1
-    },
     1: {
         id: 1,
         name: "Practice", 

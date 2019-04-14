@@ -7,6 +7,7 @@ import keyUrls from './key_urls';
 class LessonPage {
     constructor() {
         this.cache = [];
+        this.currentLesson = undefined;
         this.audioController = new AudioController("assets/audio/key-press.mp3");
         this.ratings = {};
         this.header = new Header(this);
@@ -47,6 +48,7 @@ class LessonPage {
     }
 
     render(lesson) {
+        this.currentLesson = lesson;
         this.cacheImages(lesson.content);
         this.game.render(lesson);
     }
