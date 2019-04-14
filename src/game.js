@@ -194,6 +194,7 @@ class Game {
 
     render(lessonObject) {
         this.lessonObject = lessonObject;
+        this.renderedReview = false;
         this.parentElement.innerHTML = '';
         this.lesson = new Lesson(lessonObject.id);
         const { lesson, parentElement, renderKeyboard, header } = this;

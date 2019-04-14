@@ -8,8 +8,28 @@ class ReviewPage {
         this.render = this.render.bind(this);
     }
 
-    renderStars(rating) {
+    renderStars() {
+        const starsBox = document.createElement("div");
+        starsBox.className = "stars";
+        const ratingObject = this.stats.rating();
 
+        for (let i = 0; i < 5; i++) {
+            const starHolder = document.createElement("div");
+            starHolder.className = "star-holder";
+            starsBox.appendChild(starHolder);
+
+            const star = document.createElement("img");
+            
+            if (i < ratingObject.rating) {
+                star.src = "assets/images/yellow-star.png";
+            } else {
+                star.src = "assets/images/empty-star.png";
+            }
+
+            starHolder.appendChild(star);
+        }
+
+        return starsBox;
     }
 
     renderRequirements(parentElement) {
@@ -67,6 +87,13 @@ class ReviewPage {
         const reviewPage = document.createElement("div");
         reviewPage.className = "review";
         root.appendChild(reviewPage);
+
+        reviewPage.appendChild(this.renderStars());
+        
+        const reviewMessage = document.createElement("div");
+        reviewMessage.className = "message";
+        reviewMessage.innerHTML = this.stats.rating().message;
+        reviewPage.appendChild(reviewMessage);
 
         reviewPage.appendChild(this.renderScore());
     }

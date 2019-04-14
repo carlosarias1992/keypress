@@ -10,6 +10,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    flex-direction: column;
 }
 
 .score-box {
@@ -39,4 +40,24 @@
 
 .score:first-of-type {
     border-right: 1px #cacaca solid;
+}
+
+.stars {
+    display: flex;
+    margin-bottom: 40px;
+    margin-top: -70px;
+}
+
+.star-holder {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 130px;
+    height: 130px;
+}
+
+.message {
+    color: white;
+    margin-bottom: 40px;
+    font-size: 22px;
 }
