@@ -1,5 +1,6 @@
 # Keypress 
-### [Live Site!](https://carlosarias1992.github.io/keypress/)
+
+### [Live Site!](https://carlosarias1992.github.io/keypress/){:target="_blank"}
 
 ### Background
 
