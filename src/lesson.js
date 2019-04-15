@@ -40,7 +40,6 @@ class Lesson {
     renderWord(parentElement, word, lastWord, nextLine) {
         const wordContainer = document.createElement("pre");
         wordContainer.className = "word-container";
-        parentElement.appendChild(wordContainer);
 
         if (word.includes("\n")) {
             const words = word.split("\n");
@@ -53,6 +52,7 @@ class Lesson {
                 }
             });
         } else {
+            parentElement.appendChild(wordContainer);
             const letters = word.split("");
 
             letters.forEach((letter, idx) => {

@@ -29,6 +29,7 @@ class LessonPage {
         const newLetters = [];
 
         distinctLetters.forEach(letter => {
+            if (letter === "\n") letter = "Enter";
             if (!this.cache.includes(letter)) {
                 newLetters.push(letter);
                 this.cache.push(letter);
