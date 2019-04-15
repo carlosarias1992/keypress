@@ -5,6 +5,10 @@ html {
 body {
     margin: 0;
     padding: 0;
+    background: url(../images/bg.png) no-repeat 0;
+    background-attachment: fixed;
+    background-position: center;
+    background-size: 100%;
 }
 
 #root header {

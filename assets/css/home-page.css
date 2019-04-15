@@ -6,12 +6,12 @@
 } 
 
 .all-lessons button {
-    background-color: white;
     padding: 0;
     margin: 10px;
     box-shadow: 0 1px 4px 0 rgba(0,0,0,0.37);
     border-radius: 3px;
     border: 1px #b5b5b5 solid;
+    background-color: #ffffffa3;
 }
 
 .all-lessons button:focus {
@@ -20,6 +20,7 @@
 
 .all-lessons button:hover {
     box-shadow: 0 2px 6px 0 rgba(0,0,0,0.6);
+    background-color: white;
     color: #0a6bf9;
 }
 
@@ -32,6 +33,7 @@
     font-size: 12px;
     padding: 3px 0;
     margin-top: 20px;
+    background-color: white;
 }
 
 .button-header {
@@ -55,10 +57,12 @@
     box-shadow: none;
     border: none;
     outline: none;
+    background-color: transparent;
 }
 
 .all-lessons .empty-button:hover {
     box-shadow: none;
+    background-color: transparent;
 }
 
 footer {
