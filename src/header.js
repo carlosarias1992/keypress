@@ -25,6 +25,7 @@ class Header {
     renderNextLessonButton(parentElement) {
         const nextLessonButton = document.createElement("button");
         nextLessonButton.onclick = this.nextLesson;
+        nextLessonButton.title = "Next Lesson";
         nextLessonButton.innerHTML = '<i class="fas fa-step-forward"></i>';
 
         if (Object.values(lessons).length === this.lessonPage.currentLesson.id) {
@@ -55,6 +56,7 @@ class Header {
         const restartController = document.createElement("button");
         parentElement.appendChild(restartController);
         restartController.onclick = this.restartLesson;
+        restartController.title = "Restart Lesson";
         restartController.innerHTML = '<i class="fas fa-undo"></i>';
     }
 

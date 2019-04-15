@@ -31,8 +31,10 @@ class AudioController {
         sound.className = "sound";
 
         if (this.audio) {
+            sound.title = "Disable Sound";
             sound.innerHTML = '<i class="fas fa-volume-up"></i>';
         } else {
+            sound.title = "Enable Sound";
             sound.innerHTML = '<i class="fas fa-volume-mute"></i>';
         }
 
