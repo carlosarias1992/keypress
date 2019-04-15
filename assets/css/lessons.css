@@ -5,6 +5,10 @@ html {
 body {
     margin: 0;
     padding: 0;
+    background: url(../images/bg.png) no-repeat 0;
+    background-attachment: fixed;
+    background-position: center;
+    background-size: 100%;
 }
 
 #root header {
@@ -25,7 +29,7 @@ button {
     font-size: 20px;
     color: #757575;
     transition: 0.3s;
-    cursor: pointer !important;
+    cursor: pointer;
     outline: none;
 }
 
@@ -256,4 +260,12 @@ pre {
     background: url(../images/enter.png) no-repeat 0;
 }
 
+header .right-controllers button.disabled {
+    color: #d6d6d6;
+    cursor: auto;
+}
+
+header .right-controllers button.disabled:hover {
+    color: #d6d6d6;
+}
 

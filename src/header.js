@@ -1,3 +1,5 @@
+import lessons from './lessons';
+
 class Header {
     constructor(lessonPage) {
         this.lessonPage = lessonPage;
@@ -7,10 +9,30 @@ class Header {
         this.renderControllers = this.renderControllers.bind(this);
         this.restartLesson = this.restartLesson.bind(this);
         this.renderMenu = this.renderMenu.bind(this);
+        this.nextLesson = this.nextLesson.bind(this);
     }
 
     restartLesson() {
         this.lessonPage.restartGame();
+    }
+
+    nextLesson() {
+        const nextLessonNumber = this.lessonPage.currentLesson.id;
+        const nextLesson = lessons[nextLessonNumber + 1];
+        this.lessonPage.render(nextLesson);
+    }
+
+    renderNextLessonButton(parentElement) {
+        const nextLessonButton = document.createElement("button");
+        nextLessonButton.onclick = this.nextLesson;
+        nextLessonButton.innerHTML = '<i class="fas fa-step-forward"></i>';
+
+        if (Object.values(lessons).length === this.lessonPage.currentLesson.id) {
+            nextLessonButton.className = "disabled";
+            nextLessonButton.disabled = true;
+        }
+
+        parentElement.appendChild(nextLessonButton);
     }
 
     renderMenu(parentElement) {
@@ -42,6 +64,7 @@ class Header {
         parentElement.appendChild(controllers);
 
         this.renderRestartController(controllers);
+        this.renderNextLessonButton(controllers);
 
         const audioControllerDiv = document.createElement("div");
         controllers.appendChild(audioControllerDiv);

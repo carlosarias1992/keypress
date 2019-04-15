@@ -7,9 +7,11 @@ import keyUrls from './key_urls';
 class LessonPage {
     constructor() {
         this.cache = [];
+        this.currentLesson = undefined;
         this.audioController = new AudioController("assets/audio/key-press.mp3");
+        this.ratings = {};
         this.header = new Header(this);
-        this.game = new Game(this.header, this.audioController);
+        this.game = new Game(this);
         this.render = this.render.bind(this);
         this.renderHome = this.renderHome.bind(this);
         this.cacheImages = this.cacheImages.bind(this);
@@ -46,6 +48,7 @@ class LessonPage {
     }
 
     render(lesson) {
+        this.currentLesson = lesson;
         this.cacheImages(lesson.content);
         this.game.render(lesson);
     }

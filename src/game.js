@@ -1,17 +1,19 @@
 import Lesson from './lesson';
 import Keyboard from './keyboard';
 import Stats from './stats';
-import { addClass, removeClass } from './util';
+import ReviewPage from './review_page';
 
 class Game {
-    constructor(header, audioController) {
+    constructor(lessonPage) {
         this.lesson = undefined;
         this.lessonObject = undefined;
         this.stats = undefined;
         this.keyboard = undefined;
         this.banner = undefined;
-        this.header = header;
-        this.audioController = audioController;
+        this.renderedReview = false;
+        this.lessonPage = lessonPage;
+        this.header = lessonPage.header;
+        this.audioController = lessonPage.audioController;
         this.parentElement = document.getElementById("root");
         this.renderKeyboard = this.renderKeyboard.bind(this);
         this.renderStats = this.renderStats.bind(this);
@@ -136,7 +138,7 @@ class Game {
 
     handleKeypress(e) {
         const { 
-            lesson, keyboard, stats, scrollDown, audioController
+            lesson, keyboard, stats, scrollDown, audioController, renderedReview
         } = this;
 
         const statsSection = document.createElement("div");
@@ -163,6 +165,12 @@ class Game {
             const speed = document.querySelector(".speed");
             speed.innerHTML = `${this.getCurrentSpeed()} WPM`;
         }
+
+        if (!renderedReview && lesson.currentLetterIndex === lesson.letters.length) {
+            this.renderedReview = true;
+            const reviewPage = new ReviewPage(stats);
+            reviewPage.render();
+        }
     }
 
     handleKeydown(e) {
@@ -187,11 +195,12 @@ class Game {
 
     render(lessonObject) {
         this.lessonObject = lessonObject;
+        this.renderedReview = false;
         this.parentElement.innerHTML = '';
         this.lesson = new Lesson(lessonObject.id);
         const { lesson, parentElement, renderKeyboard, header } = this;
 
-        this.stats = new Stats(lesson.letters);
+        this.stats = new Stats(lesson, this.lessonPage);
 
         parentElement.appendChild(header.render(lessonObject));
         parentElement.appendChild(lesson.render());

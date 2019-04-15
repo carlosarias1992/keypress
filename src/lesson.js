@@ -6,6 +6,8 @@ class Lesson {
         this.letters = [];
         this.editedLetters = [];
         this.wrongLetters = [];
+        this.id = lessonNumber;
+        this.level = lessons[lessonNumber].level;
         this.words = lessons[lessonNumber].content.split(" ");
         this.start = 0;
         this.duration = 0;
