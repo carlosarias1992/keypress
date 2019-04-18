@@ -75,6 +75,7 @@ pre {
     margin-right: 2px;
     border-radius: 2px;
     height: 45px;
+    position: relative;
 }
 
 .cursor {
@@ -267,5 +268,16 @@ header .right-controllers button.disabled {
 
 header .right-controllers button.disabled:hover {
     color: #d6d6d6;
+}
+
+.wrong-letter {
+    position: absolute;
+    top: 0;
+    color: white;
+    transition: 1s;
+}
+
+.remove-wrong-letter {
+    opacity: 0;
 }
 

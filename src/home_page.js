@@ -52,8 +52,9 @@ class HomePage {
         const header = document.createElement("header");
         header.className = "main-header";
         
-        const link = document.createElement("a");
-        link.href = "./index.html";
+        const link = document.createElement("button");
+        link.className="logo-button";
+        link.onclick = this.render;
         link.innerHTML = "<img src='assets/images/logo.png' />Keypress";
         header.appendChild(link);
 
@@ -73,6 +74,7 @@ class HomePage {
     }
 
     render() {
+        scrollTo(0, 0);
         this.parentElement.innerHTML = '';
         this.renderHeader();
         const lessonsContainer = document.createElement("div");
@@ -80,8 +82,8 @@ class HomePage {
         const allLessons = document.createElement("div");
         allLessons.className = "container";
         lessonsContainer.appendChild(allLessons);
+        
         let row;
-
         Object.values(lessons).forEach((lesson, idx) => {
             if (idx % 5 === 0) {
                 row = document.createElement("div");

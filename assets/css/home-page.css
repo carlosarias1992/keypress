@@ -99,3 +99,11 @@ footer {
     justify-content: flex-start;
     align-items: center;
 }
+
+.logo-button:focus {
+    outline: none;
+}
+.logo-button {
+    color: black;
+    font-size: 18px;
+}

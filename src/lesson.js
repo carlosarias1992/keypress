@@ -134,6 +134,17 @@ class Lesson {
                 addClass(currentElement, "correct");
                 removeClass(currentElement, "cursor");
             } else {
+                if (e.key !== "Enter") {
+                    const letterElement = document.createElement("div");
+                    letterElement.className = "wrong-letter";
+                    letterElement.innerHTML = e.key;
+                    currentElement.appendChild(letterElement);
+
+                    setTimeout(() => {
+                        addClass(letterElement, "remove-wrong-letter");
+                    }, 5);
+                }
+
                 if (!this.wrongLetters.includes(this.currentLetterIndex)) {
                     this.wrongLetters.push(this.currentLetterIndex);
                 }
