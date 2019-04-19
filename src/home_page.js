@@ -73,6 +73,18 @@ class HomePage {
         }
     }
 
+    renderSplash() {
+        this.parentElement.innerHTML = '';
+        const splash = document.createElement("div");
+        splash.className = "splash";
+        this.parentElement.appendChild(splash);
+
+        const splashHeader = document.createElement("div");
+        splashHeader.className = "splash-header";
+        splashHeader.innerHTML = "Keypress";
+        splash.appendChild(splashHeader);
+    }
+
     render() {
         scrollTo(0, 0);
         this.parentElement.innerHTML = '';
