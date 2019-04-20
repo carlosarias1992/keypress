@@ -11,5 +11,4 @@ document.addEventListener("DOMContentLoaded", () => {
     const lesson = new LessonPage();
     const home = new HomePage(lesson);
     home.renderSplash();
-    // home.render();
 });

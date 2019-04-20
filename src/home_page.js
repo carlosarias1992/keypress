@@ -83,6 +83,28 @@ class HomePage {
         splashHeader.className = "splash-header";
         splashHeader.innerHTML = "Keypress";
         splash.appendChild(splashHeader);
+
+        const moonImage = document.createElement("img");
+        moonImage.src = "assets/images/moon.png";
+        moonImage.className = "moon";
+        splash.appendChild(moonImage);
+
+        const titleSection = document.createElement("div");
+        titleSection.className = "splash-title";
+        splash.appendChild(titleSection);
+
+        const title = document.createElement("h1");
+        title.innerHTML = "Learn Touch Typing for free!";
+        titleSection.appendChild(title);
+
+        const subtitle = document.createElement("p");
+        subtitle.innerHTML = "Click the button below and choose a lesson to begin learning";
+        titleSection.appendChild(subtitle);
+
+        const titleButton = document.createElement("button");
+        titleButton.innerHTML = "Get Started";
+        titleButton.onclick = this.render;
+        titleSection.appendChild(titleButton);
     }
 
     render() {
