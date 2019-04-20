@@ -49,6 +49,7 @@ class LessonPage {
     }
 
     render(lesson) {
+        document.querySelector("body").style.overflow = "hidden";
         this.currentLesson = lesson;
         this.cacheImages(lesson.content);
         this.game.render(lesson);

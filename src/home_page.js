@@ -109,6 +109,7 @@ class HomePage {
 
     render() {
         scrollTo(0, 0);
+        document.querySelector("body").style.overflow = "auto";
         this.parentElement.innerHTML = '';
         this.renderHeader();
         const lessonsContainer = document.createElement("div");
