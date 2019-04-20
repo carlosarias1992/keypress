@@ -73,6 +73,20 @@ class HomePage {
         }
     }
 
+    renderCanvas() {
+        const canvas = document.createElement("canvas");
+        canvas.width = "300";
+        canvas.height = "150";
+        const ctx = canvas.getContext("2d");
+        
+        const clouds1 = new Image();
+        clouds1.src = "assets/images/clouds1.png";
+
+        ctx.drawImage(clouds1, 0, 0);
+
+        return canvas;
+    }
+
     renderSplash() {
         this.parentElement.innerHTML = '';
         const splash = document.createElement("div");
@@ -105,6 +119,8 @@ class HomePage {
         titleButton.innerHTML = "Get Started";
         titleButton.onclick = this.render;
         titleSection.appendChild(titleButton);
+
+        splash.appendChild(this.renderCanvas());
     }
 
     render() {
