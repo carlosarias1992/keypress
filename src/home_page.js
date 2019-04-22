@@ -1,4 +1,5 @@
 import lessons from './lessons';
+import { typewriterEffect } from './util';
 
 class HomePage {
     constructor(lessonPage) {
@@ -108,8 +109,12 @@ class HomePage {
         splash.appendChild(titleSection);
 
         const title = document.createElement("h1");
-        title.innerHTML = "Learn Touch Typing for free!";
+        typewriterEffect(title, "Learn Touch Typing for free!");
         titleSection.appendChild(title);
+
+        const span = document.createElement("span");
+        span.innerHTML = "|";
+        titleSection.appendChild(span);
 
         const subtitle = document.createElement("p");
         subtitle.innerHTML = "Click the button below and choose a lesson to begin learning";

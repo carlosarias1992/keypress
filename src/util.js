@@ -17,3 +17,19 @@ export const removeClass = (element, className) => {
 
     element.className = filteredClasses.join(" ");
 };
+
+export const typewriterEffect = (element, string) => {
+    const speed = 100;
+
+    let i = 0;
+    const typewriter = () => {
+        if (i < string.length) {
+            element.innerHTML += string.charAt(i);
+
+            setTimeout(typewriter, speed);
+            i++;
+        }
+    };
+
+    typewriter();
+};
