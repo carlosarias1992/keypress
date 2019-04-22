@@ -192,3 +192,11 @@ canvas {
     width: 100vw;
 }
 
+.splash-header button {
+    color: white;
+    position: relative;
+    z-index: 1;
+    outline: none;
+    font-weight: bold;
+}
+
