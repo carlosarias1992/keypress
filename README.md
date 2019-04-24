@@ -58,9 +58,9 @@ cacheImages(content) {
 
 ![Lesson Page](https://github.com/carlosarias1992/code-racer/raw/master/assets/images/lesson_page.png "Lesson Page")
 
-
-
 ### Review Page
+
+Each lesson includes a goal speed based on the level of difficulty. The review page uses this goal to determine the score a student is assigned once they finish a lesson. This feature allows students to keep track of their progress as they continue to complete the course. Towards the end of the course, a student is expected to reach a typing speed of 60-75 WPM. 
 
 ``` JavaScript 
 startTimer() {
