@@ -56,7 +56,7 @@ cacheImages(content) {
 }
 ```
 
-![Lesson Page](https://github.com/carlosarias1992/code-racer/raw/master/assets/images/lesson.png "Lesson Page")
+![Lesson Page](https://github.com/carlosarias1992/code-racer/raw/master/assets/images/lesson_page.png "Lesson Page")
 
 
 
