@@ -2,66 +2,90 @@
 
 ### [Live Site!](https://carlosarias1992.github.io/keypress/)
 
-### Background
+## Background
 
-Keyrpress is a web application designed to teach programmers how to type. Keypress has a number of different lessons
-depending on the language that you are trying to learn. A user receives stats at the end of the lesson which will help
-determine long-term improvement in typing speed. 
+Keyrpress is a web application designed to teach users how to type. Keypress has a variety of lessons
+that focus improving students' typing skills over time. A user receives stats at the end of each lesson which will help
+determine long-term improvement in typing speed and accuracy. 
 
-### Functionality & MVP
-
-With Keypress, users will be able to: 
-
-- [ ] Choose a lesson
-- [ ] Begin typing as soon as the lesson loads
-- [ ] Start, pause and reset the lesson
-- [ ] Review stats at the end of the lesson
-- [ ] Switch between lessons
-
-In addition, this project will include: 
-
-- [ ] An instructions page
-- [ ] A production README
-
-### Wireframes
-
-This app will consist of three pages. All pages will have easy access to nav links to my github and linkedIn. The index page 
-will include all available lessons. A user can click on any of these lessons to begin working on a specific lesson. 
-
-![Index Page](https://github.com/carlosarias1992/code-racer/raw/master/assets/images/index.png "Index Page")
-
-Each lesson will be displayed on a lesson page. Each lesson page will display the text to be typed by the user. The user can
-begin working on a lesson by simply typing on the keyboard. 
-
-![Lesson Page](https://github.com/carlosarias1992/code-racer/raw/master/assets/images/lesson.png "Lesson Page")
-
-The last page will be rendered once a lesson has been completed. This page also known as the stats page will display the 
-user's stats including the typing speed and accuracy. The user can use the controls in the center of the page to restart a 
-lesson, access all lessons, or move on to the next lesson. 
-
-![Stats Page](https://github.com/carlosarias1992/code-racer/raw/master/assets/images/stats.png "Stats Page")
-
-### Architecture and Technologies
+## Architecture and Technologies
 
 This project will be implemented with the following technologies:
 
 * `JavaScript` for game logic
-* Google's Firebase for data storage
-* `Node.js` to implement a server environment
 * `Webpack` to bundle js files
 
-### Implementation Timeline
+## Functionality & MVP
 
-**Day 1**: Setup all necessary Node modules, including webpack. Write a basic entry file to make sure that the basic setup works.
+With Keypress, users are able to: 
 
-**Day 2**: Learn to use Google's Firebase, and develop the basic game logic. 
+- [x] Choose a lesson
+- [x] Begin typing as soon as the lesson loads
+- [x] Start, and reset the lesson
+- [x] Review stats at the end of the lesson
+- [x] Switch between lessons
 
-**Day 3**: Install the controls for the user to interact with the game. 
+## Features
 
-**Day 4**: Style all pages.
+### Lesson Page
 
-### Bonus Features
 
-- [ ] User auth using `Node.js` and Google's Firebase
+
+``` JavaScript
+preloadImages(keys) {
+    for (let i = 0; i < keys.length; i++) {
+        const img = new Image();
+        img.src = `assets/images/keys/${keyUrls[keys[i]]}`;
+    }
+}
+
+cacheImages(content) {
+    const distinctKeys = [...new Set(content)];
+    const newKeys = [];
+
+    distinctKeys.forEach(key => {
+        if (letter === "\n") key = "Enter";
+        
+        if (!this.cache.includes(key)) {
+            newKeys.push(key);
+            this.cache.push(key);
+        }
+    });
+
+    this.preloadImages(newKeys);
+}
+```
+
+![Lesson Page](https://github.com/carlosarias1992/code-racer/raw/master/assets/images/lesson.png "Lesson Page")
+
+
+
+### Review Page
+
+``` JavaScript 
+startTimer() {
+    this.start = Date.now();
+}
+
+duration() {
+    const endTime = Date.now() - this.start;
+    return Math.ceil(endTime / 1000);
+}
+
+speed() {
+    return Math.ceil((this.content.length / 4.5) / this.duration() * 60);
+}
+    
+accuracy() {
+    const { content, wrongLetters, editedLetters } = this;
+    const numberOfCorrectInputs = content.length - wrongLetters.length;
+    return Math.ceil(((numberOfCorrectInputs + editedLetters.length) / content.length) * 100);
+}
+```
+
+![Review Page](https://github.com/carlosarias1992/code-racer/raw/master/assets/images/review.png "Review Page")
+
+## Future Implementations
+
+- [ ] User auth through `Node.js` and Google's Firebase
 - [ ] User profile page with the user's stats
-- [ ] High score for fast typers
