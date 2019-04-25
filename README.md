@@ -29,7 +29,7 @@ With Keypress, users are able to:
 
 ### Lesson Page
 
-
+In the lesson page, users can begin typing as soon as the page renders. The lesson object will keep track of the user's typing speed and accuracy, which will then be displayed on the screen for the user to keep track of their progress throughout the lesson. With OOP, it was made simple to use the same template for every lesson regardless of its length or the characters contained within it. However, the main challenge presented itself when rendering the keyboard guide images. Due to the large number of images (each key has its own image), there was an image rendering lag, which detrimented user experience. In order to tackle this issue, I had to develop a custom caching algorithm which would cache all images before they were rendered on the page. Once in the cache, the browser is able to load these images faster. Therefore, the rendering lag is seamless and unnoticeable. Nonetheless, I took this algorithm one step further and optimized it to only create image objects that had not already been cached. This way, I was able to optimize my application not only in terms of time, but also space complexity. 
 
 ``` JavaScript
 preloadImages(keys) {
@@ -56,11 +56,11 @@ cacheImages(content) {
 }
 ```
 
-![Lesson Page](https://github.com/carlosarias1992/code-racer/raw/master/assets/images/lesson.png "Lesson Page")
-
-
+![Lesson Page](https://github.com/carlosarias1992/code-racer/raw/master/assets/images/lesson_page.png "Lesson Page")
 
 ### Review Page
+
+Each lesson includes a goal speed based on the level of difficulty. The review page uses this goal to determine the score a student is assigned once they finish a lesson. This feature allows students to keep track of their progress as they continue to complete the course. Towards the end of the course, a student is expected to reach a typing speed of 60-75 WPM. 
 
 ``` JavaScript 
 startTimer() {
