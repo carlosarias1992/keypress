@@ -1,4 +1,5 @@
 import Requirements from './level_requirements';
+import lessons from './lessons';
 
 class ReviewPage {
     constructor(game) {
@@ -101,6 +102,12 @@ class ReviewPage {
 
         const nextLesson = document.createElement("button");
         nextLesson.innerHTML = '<i class="fas fa-step-forward"></i>';
+
+        if (Object.values(lessons).length === game.lessonPage.currentLesson.id) {
+            nextLesson.className = "disabled";
+            nextLesson.disabled = true;
+        }
+
         nextLesson.onclick = header.nextLesson;
         controllers.appendChild(nextLesson);
 

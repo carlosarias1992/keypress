@@ -82,3 +82,14 @@
 .review-controllers button:first-of-type {
     margin-left: 0;
 }
+
+.review-controllers button.disabled {
+    cursor: auto;
+    color: #d6d6d6;
+    border-color: #d6d6d6;
+    background-color: transparent;
+}
+
+.review-controllers button.disabled:hover {
+    background-color: transparent;
+}
