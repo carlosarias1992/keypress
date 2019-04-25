@@ -61,3 +61,24 @@
     margin-bottom: 40px;
     font-size: 22px;
 }
+
+.review-controllers button:hover {
+    background-color: #00000087;
+}
+
+.review-controllers button {
+    border: 2px solid white;
+    color: white;
+    width: 45px;
+    height: 45px;
+    margin-top: 35px;
+    margin-left: 15px;
+    border-radius: 50%;
+    cursor: pointer;
+    outline: none;
+    background-color: #00000042;
+}
+
+.review-controllers button:first-of-type {
+    margin-left: 0;
+}

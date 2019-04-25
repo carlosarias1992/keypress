@@ -168,7 +168,7 @@ class Game {
 
         if (!renderedReview && lesson.currentLetterIndex === lesson.letters.length) {
             this.renderedReview = true;
-            const reviewPage = new ReviewPage(stats);
+            const reviewPage = new ReviewPage(this);
             reviewPage.render();
         }
     }

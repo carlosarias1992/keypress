@@ -1,8 +1,10 @@
 import Requirements from './level_requirements';
 
 class ReviewPage {
-    constructor(stats) {
-        this.stats = stats;
+    constructor(game) {
+        this.stats = game.stats;
+        this.header = game.header;
+        this.game = game;
         this.renderScore = this.renderScore.bind(this);
         this.renderRequirements = this.renderRequirements.bind(this);
         this.render = this.render.bind(this);
@@ -81,6 +83,30 @@ class ReviewPage {
         return scoreBox;
     }
 
+    renderControllers() {
+        const { header, game } = this;
+
+        const controllers = document.createElement("div");
+        controllers.className = "review-controllers";
+
+        const menu = document.createElement("button");
+        menu.innerHTML = '<i class="fas fa-bars"></i>';
+        menu.onclick = game.lessonPage.renderHome;
+        controllers.appendChild(menu);
+
+        const restart = document.createElement("button");
+        restart.innerHTML = '<i class="fas fa-undo"></i>';
+        restart.onclick = header.restartLesson;
+        controllers.appendChild(restart);
+
+        const nextLesson = document.createElement("button");
+        nextLesson.innerHTML = '<i class="fas fa-step-forward"></i>';
+        nextLesson.onclick = header.nextLesson;
+        controllers.appendChild(nextLesson);
+
+        return controllers;
+    }
+
     render() {
         const root = document.getElementById("root");
         
@@ -96,6 +122,8 @@ class ReviewPage {
         reviewPage.appendChild(reviewMessage);
 
         reviewPage.appendChild(this.renderScore());
+        reviewPage.appendChild(this.renderControllers());
+
         this.stats.saveLessonRating();
     }
 }

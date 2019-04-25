@@ -1,4 +1,10 @@
 export default {
+    0: {
+        id: 0,
+        name: "Hello",
+        content: "Hello world!",
+        level: 1
+    },
     1: {
         id: 1,
         name: "Practice", 
@@ -302,7 +308,7 @@ export default {
     50: {
         id: 50,
         name: 'Red Pandas',
-        content: "Red pandas are native to the Himalayas and southwestern China. The English word for red panda is \"Firefox\" which is where the popular web browser gets its name from. Many people think that the Firefox logo is a fox, but the truth is that the logo is actually a red panda. The browser was created in 2002 and its full name id Mozilla Firefox.",
+        content: "Red pandas are native to the Himalayas and southwestern China. The English word for red panda is \"Firefox\" which is where the popular web browser gets its name from. Many people think that the Firefox logo is a fox, but the truth is that the logo is actually a red panda. The browser was created in 2002 and its full name is Mozilla Firefox.",
         level: 8
     },
     51: {
