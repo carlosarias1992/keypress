@@ -2,28 +2,11 @@
 
 ### [Live Site!](https://carlosarias1992.github.io/keypress/)
 
-## Background
+## Overview
 
 Keyrpress is a web application designed to teach users how to type. Keypress has a variety of lessons
 that focus improving students' typing skills over time. A user receives stats at the end of each lesson which will help
 determine long-term improvement in typing speed and accuracy. 
-
-## Architecture and Technologies
-
-This project will be implemented with the following technologies:
-
-* `JavaScript` for game logic
-* `Webpack` to bundle js files
-
-## Functionality & MVP
-
-With Keypress, users are able to: 
-
-- [x] Choose a lesson
-- [x] Begin typing as soon as the lesson loads
-- [x] Start, and reset the lesson
-- [x] Review stats at the end of the lesson
-- [x] Switch between lessons
 
 ## Features
 
