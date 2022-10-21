@@ -1,45 +1,50 @@
 class AudioController {
-    constructor(filePath) {
-        this.filePath = filePath;
-        this.parentElement = undefined;
-        this.audio = true;
-        this.toggleSound = this.toggleSound.bind(this);
+  static PLAY_AUDIO_KEY = "playAudio";
+
+  constructor(filePath) {
+    this.filePath = filePath;
+    this.parentElement = undefined;
+    this.playAudio = JSON.parse(
+      localStorage.getItem(AudioController.PLAY_AUDIO_KEY)
+    );
+    this.toggleSound = this.toggleSound.bind(this);
+  }
+
+  toggleSound() {
+    if (this.playAudio) {
+      this.playAudio = false;
+    } else {
+      this.playAudio = true;
     }
 
-    toggleSound() {
-        if (this.audio) {
-            this.audio = false;
-        } else {
-            this.audio = true;
-        }
+    localStorage.setItem(AudioController.PLAY_AUDIO_KEY, this.playAudio);
+    this.render(this.parentElement);
+  }
 
-        this.render(this.parentElement);
+  play() {
+    if (this.playAudio) {
+      const audio = new Audio(this.filePath);
+      audio.play();
+    }
+  }
+
+  render(parentElement) {
+    this.parentElement = parentElement;
+    parentElement.innerHTML = "";
+    const soundButton = document.createElement("button");
+    soundButton.onclick = this.toggleSound;
+    soundButton.className = "sound";
+
+    if (this.playAudio) {
+      soundButton.title = "Disable Sound";
+      soundButton.innerHTML = '<i class="fas fa-volume-up"></i>';
+    } else {
+      soundButton.title = "Enable Sound";
+      soundButton.innerHTML = '<i class="fas fa-volume-mute"></i>';
     }
 
-    play() {
-        if (this.audio) {
-            const audio = new Audio(this.filePath);
-            audio.play();
-        }
-    }
-
-    render(parentElement) {
-        this.parentElement = parentElement;
-        parentElement.innerHTML = '';
-        const sound = document.createElement("button");
-        sound.onclick = this.toggleSound;
-        sound.className = "sound";
-
-        if (this.audio) {
-            sound.title = "Disable Sound";
-            sound.innerHTML = '<i class="fas fa-volume-up"></i>';
-        } else {
-            sound.title = "Enable Sound";
-            sound.innerHTML = '<i class="fas fa-volume-mute"></i>';
-        }
-
-        parentElement.appendChild(sound);
-    }
+    parentElement.appendChild(soundButton);
+  }
 }
 
 export default AudioController;
