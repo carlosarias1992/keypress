@@ -76,16 +76,8 @@ class Game {
   }
 
   removeBanner() {
-    let top = 0;
-
-    const timerId = setInterval(() => {
-      top -= 2;
-      this.banner.style.top = `${top}px`;
-
-      if (top < -150) {
-        clearInterval(timerId);
-      }
-    }, 5);
+    const banner = document.querySelector(".banner");
+    banner.className = "banner slide-out";
   }
 
   renderBanner() {
