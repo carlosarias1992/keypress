@@ -4,9 +4,10 @@ class AudioController {
   constructor(filePath) {
     this.filePath = filePath;
     this.parentElement = undefined;
-    this.playAudio = JSON.parse(
-      localStorage.getItem(AudioController.PLAY_AUDIO_KEY)
-    );
+    this.playAudio =
+      localStorage.getItem(AudioController.PLAY_AUDIO_KEY) === null
+        ? true
+        : JSON.parse(localStorage.getItem(AudioController.PLAY_AUDIO_KEY));
     this.toggleSound = this.toggleSound.bind(this);
   }
 
