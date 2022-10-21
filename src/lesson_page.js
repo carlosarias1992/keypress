@@ -1,59 +1,58 @@
-import Game from './game';
-import Header from './header';
-import AudioController from './audio_controller';
-import HomePage from './home_page';
-import keyUrls from './key_urls';
+import Game from "./game";
+import Header from "./header";
+import AudioController from "./audio_controller";
+import HomePage from "./home_page";
+import keyUrls from "./key_urls";
 
 class LessonPage {
-    constructor() {
-        this.cache = [];
-        this.currentLesson = undefined;
-        this.audioController = new AudioController("assets/audio/key-press.mp3");
-        this.ratings = {};
-        this.header = new Header(this);
-        this.game = new Game(this);
-        this.render = this.render.bind(this);
-        this.renderHome = this.renderHome.bind(this);
-        this.cacheImages = this.cacheImages.bind(this);
+  constructor() {
+    this.cache = [];
+    this.currentLesson = undefined;
+    this.audioController = new AudioController("assets/audio/key-press.mp3");
+    this.header = new Header(this);
+    this.game = new Game(this);
+    this.render = this.render.bind(this);
+    this.renderHome = this.renderHome.bind(this);
+    this.cacheImages = this.cacheImages.bind(this);
+  }
+
+  preloadImages(letters) {
+    for (let i = 0; i < letters.length; i++) {
+      const img = new Image();
+      img.src = `assets/images/keys/${keyUrls[letters[i]]}`;
     }
+  }
 
-    preloadImages(letters) {
-        for (let i = 0; i < letters.length; i++) {
-            const img = new Image();
-            img.src = `assets/images/keys/${keyUrls[letters[i]]}`;
-        }
-    }
+  cacheImages(content) {
+    const distinctLetters = [...new Set(content)];
+    const newLetters = [];
 
-    cacheImages(content) {
-        const distinctLetters = [...new Set(content)];
-        const newLetters = [];
+    distinctLetters.forEach((letter) => {
+      if (letter === "\n") letter = "Enter";
+      if (!this.cache.includes(letter)) {
+        newLetters.push(letter);
+        this.cache.push(letter);
+      }
+    });
 
-        distinctLetters.forEach(letter => {
-            if (letter === "\n") letter = "Enter";
-            if (!this.cache.includes(letter)) {
-                newLetters.push(letter);
-                this.cache.push(letter);
-            }
-        });
+    this.preloadImages(newLetters);
+  }
 
-        this.preloadImages(newLetters);
-    }
+  restartGame() {
+    this.game.restart();
+  }
 
-    restartGame() {
-        this.game.restart();
-    }
+  renderHome() {
+    const home = new HomePage(this);
+    home.render();
+  }
 
-    renderHome() {
-        const home = new HomePage(this);
-        home.render();
-    }
-
-    render(lesson) {
-        document.querySelector("body").style.overflow = "hidden";
-        this.currentLesson = lesson;
-        this.cacheImages(lesson.content);
-        this.game.render(lesson);
-    }
+  render(lesson) {
+    document.querySelector("body").style.overflow = "hidden";
+    this.currentLesson = lesson;
+    this.cacheImages(lesson.content);
+    this.game.render(lesson);
+  }
 }
 
 export default LessonPage;

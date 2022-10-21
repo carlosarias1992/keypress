@@ -2,11 +2,10 @@ import Requirements from "./level_requirements";
 import { merge } from "lodash";
 
 class Stats {
-  constructor(lesson, lessonPage) {
+  constructor(lesson) {
     this.start = undefined;
     this.content = lesson.letters;
     this.level = lesson.level;
-    this.lessonPage = lessonPage;
     this.lesson = lesson;
     this.requirement = Requirements[lesson.level];
     this.wrongLetters = lesson.wrongLetters;
@@ -59,9 +58,7 @@ class Stats {
   }
 
   saveLessonRating() {
-    this.lessonPage.ratings = merge(this.lessonPage.ratings, {
-      [this.lesson.id]: this.rating(),
-    });
+    localStorage.setItem(this.lesson.id, this.rating().rating);
   }
 
   rating() {

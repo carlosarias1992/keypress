@@ -1,218 +1,241 @@
-import Lesson from './lesson';
-import Keyboard from './keyboard';
-import Stats from './stats';
-import ReviewPage from './review_page';
+import Lesson from "./lesson";
+import Keyboard from "./keyboard";
+import Stats from "./stats";
+import ReviewPage from "./review_page";
 
 class Game {
-    constructor(lessonPage) {
-        this.lesson = undefined;
-        this.lessonObject = undefined;
-        this.stats = undefined;
-        this.keyboard = undefined;
-        this.banner = undefined;
-        this.renderedReview = false;
-        this.lessonPage = lessonPage;
-        this.header = lessonPage.header;
-        this.audioController = lessonPage.audioController;
-        this.parentElement = document.getElementById("root");
-        this.renderKeyboard = this.renderKeyboard.bind(this);
-        this.renderStats = this.renderStats.bind(this);
-        this.getCurrentSpeed = this.getCurrentSpeed.bind(this);
-        this.getCurrentAccuracy = this.getCurrentAccuracy.bind(this);
-        this.handleInput = this.handleInput.bind(this);
-        this.handleKeypress = this.handleKeypress.bind(this);
-        this.handleKeydown = this.handleKeydown.bind(this);
-        this.removeBanner = this.removeBanner.bind(this);
+  constructor(lessonPage) {
+    this.lesson = undefined;
+    this.lessonObject = undefined;
+    this.stats = undefined;
+    this.keyboard = undefined;
+    this.banner = undefined;
+    this.renderedReview = false;
+    this.lessonPage = lessonPage;
+    this.header = lessonPage.header;
+    this.audioController = lessonPage.audioController;
+    this.parentElement = document.getElementById("root");
+    this.renderKeyboard = this.renderKeyboard.bind(this);
+    this.renderStats = this.renderStats.bind(this);
+    this.getCurrentSpeed = this.getCurrentSpeed.bind(this);
+    this.getCurrentAccuracy = this.getCurrentAccuracy.bind(this);
+    this.handleInput = this.handleInput.bind(this);
+    this.handleKeypress = this.handleKeypress.bind(this);
+    this.handleKeydown = this.handleKeydown.bind(this);
+    this.removeBanner = this.removeBanner.bind(this);
+  }
+
+  restart() {
+    this.lesson = undefined;
+    this.stats = undefined;
+    this.keyboard = undefined;
+    this.banner = undefined;
+    this.parentElement.innerHTML = "";
+    this.render(this.lessonObject);
+  }
+
+  getCurrentAccuracy() {
+    const { lesson, stats } = this;
+
+    const currentLetters = lesson.letters.slice(0, lesson.currentLetterIndex);
+    return stats.currentAccuracy(
+      lesson.wrongLetters,
+      lesson.editedLetters,
+      currentLetters
+    );
+  }
+
+  getCurrentSpeed() {
+    const { lesson, stats } = this;
+
+    const currentLetters = lesson.letters.slice(0, lesson.currentLetterIndex);
+    return stats.currentSpeed(currentLetters);
+  }
+
+  statsElement(parentElement, valueName) {
+    const holder = document.createElement("div");
+    parentElement.appendChild(holder);
+    const title = document.createElement("h2");
+    title.className = "title";
+    title.innerHTML = valueName;
+    holder.appendChild(title);
+    const value = document.createElement("p");
+    value.className = valueName.toLowerCase();
+
+    if (valueName === "Accuracy") {
+      value.innerHTML = `${this.getCurrentAccuracy()}%`;
+    } else if (valueName === "Speed") {
+      value.innerHTML = `${this.getCurrentSpeed()} WPM`;
     }
 
-    restart() {
-        this.lesson = undefined;
-        this.stats = undefined;
-        this.keyboard = undefined;
-        this.banner = undefined;
-        this.parentElement.innerHTML = '';
-        this.render(this.lessonObject);
+    holder.appendChild(value);
+  }
+
+  removeBanner() {
+    let top = 0;
+
+    const timerId = setInterval(() => {
+      top -= 2;
+      this.banner.style.top = `${top}px`;
+
+      if (top < -150) {
+        clearInterval(timerId);
+      }
+    }, 5);
+  }
+
+  renderBanner() {
+    const banner = document.createElement("div");
+    this.banner = banner;
+    banner.className = "banner slide-in";
+    banner.innerHTML = "Start Typing";
+    this.parentElement.append(banner);
+  }
+
+  renderStats(statsParentElement) {
+    if (!document.querySelector(".stats")) {
+      statsParentElement.className = "stats";
+
+      this.statsElement(statsParentElement, "Accuracy");
+      this.statsElement(statsParentElement, "Speed");
+
+      this.parentElement.appendChild(statsParentElement);
     }
+  }
 
-    getCurrentAccuracy() {
-        const { lesson, stats } = this;
+  renderKeyboard(keyboardParentElement) {
+    keyboardParentElement.className = "keyboard";
+    this.keyboard.render(this.lesson.letters[0]);
 
-        const currentLetters = lesson.letters.slice(0, lesson.currentLetterIndex);
-        return stats.currentAccuracy(lesson.wrongLetters, lesson.editedLetters, currentLetters);
-    }
+    this.parentElement.appendChild(keyboardParentElement);
+  }
 
-    getCurrentSpeed() {
-        const { lesson, stats } = this;
+  scrollDown() {
+    const cursor = document.querySelector(".cursor");
+    const lessonContainer = document.querySelector(".lesson-container");
 
-        const currentLetters = lesson.letters.slice(0, lesson.currentLetterIndex);
-        return stats.currentSpeed(currentLetters);
-    }
+    if (
+      cursor &&
+      cursor.offsetTop > lessonContainer.scrollTop + 5 &&
+      lessonContainer.scrollHeight - cursor.offsetTop >= 190
+    ) {
+      const timerId = setInterval(() => {
+        lessonContainer.scrollTop += 1;
 
-    statsElement(parentElement, valueName) {
-        const holder = document.createElement("div");
-        parentElement.appendChild(holder);
-        const title = document.createElement("h2");
-        title.className = "title";
-        title.innerHTML = valueName;
-        holder.appendChild(title);
-        const value = document.createElement("p");
-        value.className = valueName.toLowerCase();
-
-        if (valueName === "Accuracy") {
-            value.innerHTML = `${this.getCurrentAccuracy()}%`;
-        } else if (valueName === "Speed") {
-            value.innerHTML = `${this.getCurrentSpeed()} WPM`;
+        if (lessonContainer.scrollTop + 5 > cursor.offsetTop) {
+          clearInterval(timerId);
         }
-
-        holder.appendChild(value);
+      }, 12);
     }
+  }
 
-    removeBanner() {
-        let top = 0;
+  scrollUp() {
+    const cursor = document.querySelector(".cursor");
+    const lessonContainer = document.querySelector(".lesson-container");
 
-        const timerId = setInterval(() => {
-            top -= 2;
-            this.banner.style.top = `${top}px`;
+    if (cursor.offsetTop < lessonContainer.scrollTop) {
+      const timerId = setInterval(() => {
+        lessonContainer.scrollTop -= 1;
 
-            if (top < -150) {
-                clearInterval(timerId);
-            }
-        }, 5);
-    }
-
-    renderBanner() {
-        const banner = document.createElement("div");
-        this.banner = banner;
-        banner.className = "banner slide-in";
-        banner.innerHTML = "Start Typing";
-        this.parentElement.append(banner);
-    }
-
-    renderStats(statsParentElement) {
-        if (!document.querySelector(".stats")) {
-            statsParentElement.className = "stats";
-
-            this.statsElement(statsParentElement, "Accuracy");
-            this.statsElement(statsParentElement, "Speed");
-
-            this.parentElement.appendChild(statsParentElement);
+        if (lessonContainer.scrollTop + 1 < cursor.offsetTop) {
+          clearInterval(timerId);
         }
+      }, 12);
+    }
+  }
+
+  handleKeypress(e) {
+    const {
+      lesson,
+      keyboard,
+      stats,
+      scrollDown,
+      audioController,
+      renderedReview,
+    } = this;
+
+    const statsSection = document.createElement("div");
+    const currentLetter = lesson.letters[lesson.currentLetterIndex + 1];
+    lesson.handleInput(e);
+    scrollDown();
+
+    if (lesson.currentLetterIndex === 1) {
+      this.removeBanner();
+      stats.startTimer();
     }
 
-    renderKeyboard(keyboardParentElement) {
-        keyboardParentElement.className = "keyboard";
-        this.keyboard.render(this.lesson.letters[0]);
-
-        this.parentElement.appendChild(keyboardParentElement);
+    if (lesson.currentLetterIndex < lesson.letters.length) {
+      audioController.play();
+      keyboard.render(currentLetter);
     }
 
-    scrollDown() {
-        const cursor = document.querySelector(".cursor");
-        const lessonContainer = document.querySelector(".lesson-container");
+    if (lesson.currentLetterIndex === 9) {
+      this.renderStats(statsSection);
+    } else if (
+      lesson.currentLetterIndex > 9 &&
+      lesson.currentLetterIndex < lesson.letters.length
+    ) {
+      const accuracy = document.querySelector(".accuracy");
+      accuracy.innerHTML = `${this.getCurrentAccuracy()}%`;
 
-        if (cursor && cursor.offsetTop > lessonContainer.scrollTop + 5 && lessonContainer.scrollHeight - cursor.offsetTop >= 190) {
-            const timerId = setInterval(() => {
-                lessonContainer.scrollTop += 1;
-
-                if (lessonContainer.scrollTop + 5 > cursor.offsetTop) {
-                    clearInterval(timerId);
-                }
-            }, 12);
-        } 
+      const speed = document.querySelector(".speed");
+      speed.innerHTML = `${this.getCurrentSpeed()} WPM`;
     }
 
-    scrollUp() {
-        const cursor = document.querySelector(".cursor");
-        const lessonContainer = document.querySelector(".lesson-container");
-
-        if (cursor.offsetTop < lessonContainer.scrollTop) {
-            const timerId = setInterval(() => {
-                lessonContainer.scrollTop -= 1;
-
-                if (lessonContainer.scrollTop + 1 < cursor.offsetTop) {
-                    clearInterval(timerId);
-                }
-            }, 12);
-        }
+    if (
+      !renderedReview &&
+      lesson.currentLetterIndex === lesson.letters.length
+    ) {
+      this.renderedReview = true;
+      const reviewPage = new ReviewPage(this);
+      reviewPage.render();
     }
+  }
 
-    handleKeypress(e) {
-        const { 
-            lesson, keyboard, stats, scrollDown, audioController, renderedReview
-        } = this;
+  handleKeydown(e) {
+    const { lesson, keyboard, scrollUp, audioController } = this;
 
-        const statsSection = document.createElement("div");
-        const currentLetter = lesson.letters[lesson.currentLetterIndex + 1];
-        lesson.handleInput(e);
-        scrollDown();
+    const currentLetter = lesson.letters[lesson.currentLetterIndex - 1];
+    lesson.handleBackspace(e);
 
-        if (lesson.currentLetterIndex === 1) {
-            this.removeBanner();
-            stats.startTimer();
-        }
-
-        if (lesson.currentLetterIndex < lesson.letters.length) {
-            audioController.play();
-            keyboard.render(currentLetter);
-        }
-
-        if (lesson.currentLetterIndex === 9) {
-            this.renderStats(statsSection);
-        } else if (lesson.currentLetterIndex > 9 && lesson.currentLetterIndex < lesson.letters.length) {
-            const accuracy = document.querySelector(".accuracy");
-            accuracy.innerHTML = `${this.getCurrentAccuracy()}%`;
-
-            const speed = document.querySelector(".speed");
-            speed.innerHTML = `${this.getCurrentSpeed()} WPM`;
-        }
-
-        if (!renderedReview && lesson.currentLetterIndex === lesson.letters.length) {
-            this.renderedReview = true;
-            const reviewPage = new ReviewPage(this);
-            reviewPage.render();
-        }
+    if (
+      currentLetter &&
+      lesson.currentLetterIndex < lesson.letters.length &&
+      e.key === "Backspace"
+    ) {
+      audioController.play();
+      keyboard.render(currentLetter);
+      scrollUp();
     }
+  }
 
-    handleKeydown(e) {
-        const { lesson, keyboard, scrollUp, audioController } = this;
+  handleInput() {
+    const { handleKeydown, handleKeypress } = this;
 
-        const currentLetter = lesson.letters[lesson.currentLetterIndex - 1];
-        lesson.handleBackspace(e);
+    document.addEventListener("keypress", handleKeypress);
+    document.addEventListener("keydown", handleKeydown);
+  }
 
-        if (currentLetter && lesson.currentLetterIndex < lesson.letters.length && e.key === "Backspace") {
-            audioController.play();
-            keyboard.render(currentLetter);
-            scrollUp();
-        }
-    }
+  render(lessonObject) {
+    this.lessonObject = lessonObject;
+    this.renderedReview = false;
+    this.parentElement.innerHTML = "";
+    this.lesson = new Lesson(lessonObject.id);
+    const { lesson, parentElement, renderKeyboard, header } = this;
 
-    handleInput() {
-        const { handleKeydown, handleKeypress } = this;
+    this.stats = new Stats(lesson);
 
-        document.addEventListener("keypress", handleKeypress);
-        document.addEventListener("keydown", handleKeydown);
-    }
+    parentElement.appendChild(header.render(lessonObject));
+    parentElement.appendChild(lesson.render());
+    lesson.moveCursor();
 
-    render(lessonObject) {
-        this.lessonObject = lessonObject;
-        this.renderedReview = false;
-        this.parentElement.innerHTML = '';
-        this.lesson = new Lesson(lessonObject.id);
-        const { lesson, parentElement, renderKeyboard, header } = this;
+    const keyboardSection = document.createElement("div");
+    this.keyboard = new Keyboard(keyboardSection);
+    renderKeyboard(keyboardSection);
 
-        this.stats = new Stats(lesson, this.lessonPage);
-
-        parentElement.appendChild(header.render(lessonObject));
-        parentElement.appendChild(lesson.render());
-        lesson.moveCursor();
-
-        const keyboardSection = document.createElement("div");
-        this.keyboard = new Keyboard(keyboardSection);
-        renderKeyboard(keyboardSection);
-
-        this.renderBanner();
-        this.handleInput();
-    }
+    this.renderBanner();
+    this.handleInput();
+  }
 }
 
 export default Game;
