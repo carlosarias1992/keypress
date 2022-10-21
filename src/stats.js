@@ -1,5 +1,4 @@
 import Requirements from "./level_requirements";
-import { merge } from "lodash";
 
 class Stats {
   constructor(lesson) {
