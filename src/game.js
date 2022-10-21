@@ -22,7 +22,9 @@ class Game {
     this.handleInput = this.handleInput.bind(this);
     this.handleKeypress = this.handleKeypress.bind(this);
     this.handleKeydown = this.handleKeydown.bind(this);
+    this.handleAccuracyMonitor = this.handleAccuracyMonitor.bind(this);
     this.removeBanner = this.removeBanner.bind(this);
+    this.restart = this.restart.bind(this);
   }
 
   restart() {
@@ -37,7 +39,7 @@ class Game {
   getCurrentAccuracy() {
     const { lesson, stats } = this;
 
-    const currentLetters = lesson.letters.slice(0, lesson.currentLetterIndex);
+    const currentLetters = this.getCurrentLetters();
     return stats.currentAccuracy(
       lesson.wrongLetters,
       lesson.editedLetters,
@@ -45,11 +47,13 @@ class Game {
     );
   }
 
-  getCurrentSpeed() {
-    const { lesson, stats } = this;
+  getCurrentLetters() {
+    return this.lesson.letters.slice(0, this.lesson.currentLetterIndex);
+  }
 
-    const currentLetters = lesson.letters.slice(0, lesson.currentLetterIndex);
-    return stats.currentSpeed(currentLetters);
+  getCurrentSpeed() {
+    const currentLetters = this.getCurrentLetters();
+    return this.stats.currentSpeed(currentLetters);
   }
 
   statsElement(parentElement, valueName) {
@@ -210,10 +214,38 @@ class Game {
   }
 
   handleInput() {
-    const { handleKeydown, handleKeypress } = this;
+    document.addEventListener("keypress", this.handleKeypress);
+    document.addEventListener("keypress", this.handleAccuracyMonitor);
+    document.addEventListener("keydown", this.handleKeydown);
+  }
 
-    document.addEventListener("keypress", handleKeypress);
-    document.addEventListener("keydown", handleKeydown);
+  handleAccuracyMonitor() {
+    const numberOfTypedLetters = this.getCurrentLetters().length;
+
+    if (numberOfTypedLetters > 40 && this.getCurrentAccuracy() < 40) {
+      this.renderRestartOverlay();
+      document.removeEventListener("keypress", this.handleKeypress);
+      document.removeEventListener("keypress", this.handleAccuracyMonitor);
+      document.removeEventListener("keydown", this.handleKeydown);
+    }
+  }
+
+  renderRestartOverlay() {
+    const overlay = document.createElement("div");
+    overlay.className = "overlay";
+
+    const restartContainer = document.createElement("div");
+    restartContainer.className = "restart-container";
+    restartContainer.innerText = "Please focus on your accuracy and try again.";
+
+    const restartButton = document.createElement("button");
+    restartButton.className = "restart-button";
+    restartButton.innerText = "Restart Lesson";
+    restartButton.onclick = this.restart;
+
+    restartContainer.appendChild(restartButton);
+    overlay.appendChild(restartContainer);
+    this.parentElement.appendChild(overlay);
   }
 
   render(lessonObject) {
