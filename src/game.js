@@ -134,6 +134,11 @@ class Game {
   }
 
   scrollUp() {
+    const lessonContainer = document.querySelector(".lesson-container");
+    lessonContainer.scrollTop = 0;
+  }
+
+  scrollUpAnimation() {
     const cursor = document.querySelector(".cursor");
     const lessonContainer = document.querySelector(".lesson-container");
 
@@ -197,7 +202,7 @@ class Game {
   }
 
   handleKeydown(e) {
-    const { lesson, keyboard, scrollUp, audioController } = this;
+    const { lesson, keyboard, scrollUpAnimation, audioController } = this;
 
     const currentLetter = lesson.letters[lesson.currentLetterIndex - 1];
     lesson.handleBackspace(e);
@@ -209,7 +214,7 @@ class Game {
     ) {
       audioController.play();
       keyboard.render(currentLetter);
-      scrollUp();
+      scrollUpAnimation();
     }
   }
 
@@ -260,6 +265,7 @@ class Game {
     parentElement.appendChild(header.render(lessonObject));
     parentElement.appendChild(lesson.render());
     lesson.moveCursor();
+    this.scrollUp();
 
     const keyboardSection = document.createElement("div");
     this.keyboard = new Keyboard(keyboardSection);
